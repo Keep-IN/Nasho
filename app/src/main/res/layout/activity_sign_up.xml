@@ -94,7 +94,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout3"
+        android:id="@+id/tilEmailDaftar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:boxBackgroundColor="@color/white"
@@ -128,11 +128,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="Kata Sandi"
-        app:layout_constraintStart_toStartOf="@+id/textInputLayout3"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
+        app:layout_constraintStart_toStartOf="@+id/tilEmailDaftar"
+        app:layout_constraintTop_toBottomOf="@+id/tilEmailDaftar" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout4"
+        android:id="@+id/tilPasswordDaftar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:boxBackgroundColor="@color/white"
@@ -146,8 +146,8 @@
         app:boxStrokeWidth="1dp"
         app:errorIconDrawable="@null"
         app:hintEnabled="false"
-        app:layout_constraintEnd_toEndOf="@+id/textInputLayout3"
-        app:layout_constraintStart_toStartOf="@+id/textInputLayout3"
+        app:layout_constraintEnd_toEndOf="@+id/tilEmailDaftar"
+        app:layout_constraintStart_toStartOf="@+id/tilEmailDaftar"
         app:layout_constraintTop_toBottomOf="@+id/textView13"
         app:passwordToggleEnabled="true"
         app:startIconCheckable="true">
@@ -167,11 +167,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="Konfirmasi Kata Sandi"
-        app:layout_constraintStart_toStartOf="@+id/textInputLayout4"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout4" />
+        app:layout_constraintStart_toStartOf="@+id/tilPasswordDaftar"
+        app:layout_constraintTop_toBottomOf="@+id/tilPasswordDaftar" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout5"
+        android:id="@+id/tilPasswordKonf"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:boxBackgroundColor="@color/white"
@@ -185,8 +185,8 @@
         app:boxStrokeWidth="1dp"
         app:errorIconDrawable="@null"
         app:hintEnabled="false"
-        app:layout_constraintEnd_toEndOf="@+id/textInputLayout4"
-        app:layout_constraintStart_toStartOf="@+id/textInputLayout4"
+        app:layout_constraintEnd_toEndOf="@+id/tilPasswordDaftar"
+        app:layout_constraintStart_toStartOf="@+id/tilPasswordDaftar"
         app:layout_constraintTop_toBottomOf="@+id/textView14"
         app:passwordToggleEnabled="true"
         app:startIconCheckable="true">
@@ -201,7 +201,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/button2"
+        android:id="@+id/btnDaftar"
         android:layout_width="0dp"
         android:layout_height="62dp"
         android:layout_marginTop="125dp"
@@ -212,7 +212,7 @@
         android:textStyle="bold"
         app:backgroundTint="@color/bg_button_selector"
         app:cornerRadius="30dp"
-        app:layout_constraintEnd_toEndOf="@+id/textInputLayout5"
-        app:layout_constraintStart_toStartOf="@+id/textInputLayout5"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout5" />
+        app:layout_constraintEnd_toEndOf="@+id/tilPasswordKonf"
+        app:layout_constraintStart_toStartOf="@+id/tilPasswordKonf"
+        app:layout_constraintTop_toBottomOf="@+id/tilPasswordKonf" />
 </androidx.constraintlayout.widget.ConstraintLayout>
