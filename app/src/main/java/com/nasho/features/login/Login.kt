@@ -9,6 +9,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.widget.doOnTextChanged
 import com.nasho.R
 import com.nasho.databinding.ActivityLoginBinding
+import com.nasho.features.Materi.MateriVideo
 import com.nasho.features.signup.SignUp
 
 class Login : AppCompatActivity() {
@@ -50,7 +51,7 @@ class Login : AppCompatActivity() {
             }
 
             tvDaftar.setOnClickListener {
-                startActivity(Intent(this@Login, SignUp::class.java))
+                startActivity(Intent(this@Login, MateriVideo::class.java))
             }
         }
     }
