@@ -8,6 +8,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.nasho.databinding.ActivityMainBinding
 import com.nasho.features.login.Login
+import com.nasho.features.signup.SignUp
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -22,7 +23,7 @@ class MainActivity : AppCompatActivity() {
             insets
         }
         binding.textView.setOnClickListener {
-            val intent = Intent(this, Login::class.java)
+            val intent = Intent(this, SignUp::class.java)
             startActivity(intent)
         }
     }

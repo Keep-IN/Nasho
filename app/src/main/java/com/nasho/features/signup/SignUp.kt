@@ -1,5 +1,6 @@
 package com.nasho.features.signup
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -11,6 +12,7 @@ import androidx.core.widget.doOnTextChanged
 import com.nasho.R
 import com.nasho.databinding.ActivitySignUpBinding
 import com.nasho.features.login.AuthViewModel
+import com.nasho.features.login.Login
 
 class SignUp : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
@@ -30,12 +32,27 @@ class SignUp : AppCompatActivity() {
         binding.apply {
             btnDaftar.isEnabled = false
 
+            imageView2.setOnClickListener {
+                startActivity(Intent(this@SignUp, Login::class.java))
+                finish()
+            }
+
             textInputLayout2.editText?.doOnTextChanged { text, start, before, count ->
                 if (textInputLayout2.isNotEmpty()) {
                     textInputLayout2.isErrorEnabled = false
                 } else {
                     textInputLayout2.isErrorEnabled = true
-                    textInputLayout2.error = "Nama harus diisi lengkap"
+                    textInputLayout2.error = ""
+                }
+                validateInput()
+            }
+
+            tilEmailDaftar.editText?.doOnTextChanged { text, start, before, count ->
+                if (tilEmailDaftar.isNotEmpty()) {
+                    tilEmailDaftar.isErrorEnabled = false
+                } else {
+                    tilEmailDaftar.isErrorEnabled = true
+                    tilEmailDaftar.error = ""
                 }
                 validateInput()
             }
@@ -65,8 +82,12 @@ class SignUp : AppCompatActivity() {
                 }
                 validateInput()
             }
-        }
 
+            btnDaftar.setOnClickListener{
+                startActivity(Intent(this@SignUp,Login::class.java))
+                finish()
+            }
+        }
     }
 
     private fun validateInput() {
