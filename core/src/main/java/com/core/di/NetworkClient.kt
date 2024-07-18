@@ -1,10 +1,13 @@
 package com.core.di
 
+import android.content.Context
 import android.content.SharedPreferences
+import android.preference.PreferenceManager
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -20,7 +23,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class NetworkClient {
     companion object{
-        private const val  BASE_URL =""
+        private const val  BASE_URL ="https://enormous-mint-tomcat.ngrok-free.app"
         private const val token = ".."
     }
     @Singleton
@@ -68,4 +71,14 @@ class NetworkClient {
             .client(okHttpClient)
             .build()
 
+    @Singleton
+    @Provides
+    fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
+        return PreferenceManager.getDefaultSharedPreferences(context)
+    }
+
+    @Singleton
+    @Provides
+    fun provideApiLogin(retrofit: Retrofit): ApiContractLogin =
+        retrofit.create(ApiContractLogin::class.java)
 }
