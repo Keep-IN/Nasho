@@ -19,6 +19,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <TextView
+                android:id="@+id/tvIsiSpekMateri"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/manrope"
+                android:text="Nahwu adalah ilmu yang mempelajari struktur kalimat dalam bahasa Arab. Fokus utama nahwu adalah bagaimana kata-kata disusun dalam sebuah kalimat agar sesuai dengan kaidah tata bahasa Arab. Nahwu mencakup aturan tentang posisi dan fungsi kata dalam kalimat, serta perubahan yang terjadi pada akhir kata karena posisi tersebut."
+                android:textColor="#4D5761"
+                android:textColorLink="#4D5761"
+                android:textSize="14dp"
+                app:layout_constraintEnd_toEndOf="@+id/playerView"
+                app:layout_constraintStart_toStartOf="@+id/playerView"
+                app:layout_constraintTop_toBottomOf="@+id/playerView" />
+
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/materialCardView"
                 android:layout_width="0dp"
@@ -46,7 +60,7 @@
                         android:src="@drawable/ic_back_arrow" />
 
                     <TextView
-                        android:id="@+id/textView9"
+                        android:id="@+id/tvJudulUtama"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/manrope_semibold"
@@ -58,7 +72,7 @@
                         app:layout_constraintTop_toTopOf="@+id/ivBackVideo" />
 
                     <TextView
-                        android:id="@+id/textView16"
+                        android:id="@+id/tvJudulSpekMateri"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
@@ -67,10 +81,10 @@
                         android:textColor="#FCFCFD"
                         android:textSize="20dp"
                         app:layout_constraintStart_toStartOf="@+id/ivBackVideo"
-                        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+                        app:layout_constraintTop_toBottomOf="@+id/tvJudulUtama" />
 
                     <TextView
-                        android:id="@+id/textView17"
+                        android:id="@+id/tvKategoriMateri"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="36dp"
@@ -79,22 +93,27 @@
                         android:textColor="#FCFCFD"
                         android:textSize="10dp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/textView16"
-                        app:layout_constraintTop_toBottomOf="@+id/textView16" />
+                        app:layout_constraintStart_toStartOf="@+id/tvJudulSpekMateri"
+                        app:layout_constraintTop_toBottomOf="@+id/tvJudulSpekMateri" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <FrameLayout
-                android:id="@+id/playerFragmentContainer"
-                android:layout_width="0dp"
+            <androidx.media3.ui.PlayerView
+                android:id="@+id/playerView"
+                android:layout_width="344dp"
                 android:layout_height="188dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="24dp"
+                app:controller_layout_id="@layout/custom_controller"
                 app:layout_constraintEnd_toEndOf="@+id/materialCardView"
                 app:layout_constraintStart_toStartOf="@+id/materialCardView"
-                app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
+                app:layout_constraintTop_toBottomOf="@+id/materialCardView"
+                app:resize_mode="fill"
+                app:show_buffering="when_playing"
+                app:show_shuffle_button="true" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

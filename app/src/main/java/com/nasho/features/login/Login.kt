@@ -2,6 +2,8 @@ package com.nasho.features.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.preference.PreferenceManager
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -33,6 +35,11 @@ class Login : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        val sharedPref = PreferenceManager.getDefaultSharedPreferences(this@Login)
+        val sPref = sharedPref.edit()
+        sPref.clear()
+        sPref.apply()
 
         binding.apply {
             tilEmailLogin.editText?.doOnTextChanged { text, _, _, _ ->
@@ -66,6 +73,10 @@ class Login : AppCompatActivity() {
                             // Show loading indicator
                         }
                         is Result.Success -> {
+                            sPref.putString("token", result.data.data.accessToken)
+                            Log.d("Token", "token: ${result.data.data.accessToken}")
+                            sPref.apply()
+
                             Toast.makeText(this@Login, "Login successful!", Toast.LENGTH_SHORT).show()
                             val intent = Intent(this@Login, Home::class.java)
                             startActivity(intent)
