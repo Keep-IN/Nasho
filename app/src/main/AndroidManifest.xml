@@ -17,10 +17,13 @@
         android:theme="@style/Theme.Nasho"
         tools:targetApi="31">
         <activity
-            android:name=".features.home.MateriContainer"
+            android:name=".features.quiz.QuizActivity"
             android:exported="false" />
         <activity
-            android:name=".features.home.Home"
+            android:name=".features.home_materi.MateriContainer"
+            android:exported="false" />
+        <activity
+            android:name=".features.home_materi.Home"
             android:exported="false" />
         <activity
             android:name=".features.signup.SignUp"

@@ -1,4 +1,4 @@
-package com.nasho.features.home
+package com.nasho.features.home_materi
 
 import android.os.Bundle
 import android.view.View
@@ -6,9 +6,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.nasho.R
 import com.nasho.databinding.ActivityMateriContainerBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MateriContainer : AppCompatActivity() {
     private lateinit var binding: ActivityMateriContainerBinding
     override fun onCreate(savedInstanceState: Bundle?) {
