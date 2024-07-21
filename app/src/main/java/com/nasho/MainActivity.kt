@@ -10,6 +10,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.nasho.databinding.ActivityMainBinding
 import com.nasho.features.home.Home
 import com.nasho.features.login.Login
+import com.nasho.features.settings.Pengaturan
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -30,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         val accessToken = sharedPref.getString("token", null)
 
         if (accessToken != null) {
-            val intent = Intent(this, Home::class.java)
+            val intent = Intent(this, Pengaturan::class.java)
             startActivity(intent)
             finish()
         } else {

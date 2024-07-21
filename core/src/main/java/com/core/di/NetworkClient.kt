@@ -81,4 +81,14 @@ class NetworkClient {
     @Provides
     fun provideApiLogin(retrofit: Retrofit): ApiContractLogin =
         retrofit.create(ApiContractLogin::class.java)
+
+    @Singleton
+    @Provides
+    fun provideApiProfile(retrofit: Retrofit): ApiContractProfiling =
+        retrofit.create(ApiContractProfiling::class.java)
+
+    @Singleton
+    @Provides
+    fun provideApiMateri(retrofit: Retrofit): ApiContractMateri =
+        retrofit.create(ApiContractMateri::class.java)
 }

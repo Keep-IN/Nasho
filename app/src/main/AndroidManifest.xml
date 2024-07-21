@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name=".di.App"
@@ -19,9 +19,24 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".features.settings.AlertLogout"
+            android:exported="false" />
+        <activity
+            android:name=".features.settings.GantiKataSandi"
+            android:exported="false" />
+        <activity
+            android:name=".features.settings.UbahProfil"
+            android:exported="false" />
+        <activity
+            android:name=".features.settings.TentangKami"
+            android:exported="false" />
+        <activity
+            android:name=".features.settings.Pengaturan"
+            android:exported="false" />
+        <activity
             android:name=".features.Materi.MateriVideo"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|screenLayout"/>
+            android:configChanges="orientation|screenSize|screenLayout"
+            android:exported="false" />
         <activity
             android:name=".features.home.Home"
             android:exported="false" />
