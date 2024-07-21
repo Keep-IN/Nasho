@@ -18,7 +18,7 @@ import javax.inject.Singleton
 class QuizRepository @Inject constructor(
     private val api: ApiContractQuiz
 ) {
-    fun accesQuiz(id: Int, quizAccessRequest: QuizAccessRequest): LiveData<Result<QuizAccesResponse>> = liveData {
+    fun accessQuiz(id: Int, quizAccessRequest: QuizAccessRequest): LiveData<Result<QuizAccesResponse>> = liveData {
         emit(Result.Loading)
         val response =  api.accesQuiz(id, quizAccessRequest)
         val responseBody = response.body()

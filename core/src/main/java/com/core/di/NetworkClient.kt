@@ -23,7 +23,7 @@ import javax.inject.Singleton
 class NetworkClient {
     companion object{
         private const val  BASE_URL =""
-        private const val token = ".."
+        private const val token = ""
     }
     @Singleton
     @Provides
