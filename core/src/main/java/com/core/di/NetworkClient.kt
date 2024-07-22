@@ -1,6 +1,8 @@
 package com.core.di
 
 import android.content.SharedPreferences
+import com.core.data.repositories.MateriRepository
+import com.core.data.repositories.QuizRepository
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
 import dagger.Provides
@@ -21,7 +23,7 @@ import javax.inject.Singleton
 class NetworkClient {
     companion object{
         private const val  BASE_URL =""
-        private const val token = ".."
+        private const val token = ""
     }
     @Singleton
     @Provides
@@ -67,5 +69,15 @@ class NetworkClient {
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .client(okHttpClient)
             .build()
+
+    @Singleton
+    @Provides
+    fun provideApiMateri(retrofit: Retrofit): MateriRepository =
+        retrofit.create(MateriRepository::class.java)
+
+    @Singleton
+    @Provides
+    fun provideApiQuiz(retrofit: Retrofit): QuizRepository =
+        retrofit.create(QuizRepository::class.java)
 
 }

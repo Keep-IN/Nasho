@@ -17,7 +17,19 @@
         android:theme="@style/Theme.Nasho"
         tools:targetApi="31">
         <activity
-            android:name=".features.home.Home"
+            android:name=".features.quiz.quizDiscussion.QuizDiscussion"
+            android:exported="false" />
+        <activity
+            android:name=".features.quiz.quizGrade.QuizGrade"
+            android:exported="false" />
+        <activity
+            android:name=".features.quiz.QuizActivity"
+            android:exported="false" />
+        <activity
+            android:name=".features.home_materi.MateriContainer"
+            android:exported="false" />
+        <activity
+            android:name=".features.home_materi.Home"
             android:exported="false" />
         <activity
             android:name=".features.signup.SignUp"

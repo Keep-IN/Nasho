@@ -3,45 +3,23 @@ package com.core.data.repositories
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.core.data.network.Result
+import com.core.data.reqres.materi.MateriResponse
+import com.core.data.reqres.materi.kategoriMateri.KategoriMateriResponse
+import com.core.data.reqres.materi.spesificMateri.SpesificMateriResponse
+import com.core.data.reqres.materi.userAccessMateri.UserAccessResponse
 import com.core.data.reqres.quiz.QuizResponse
-import com.core.data.reqres.quiz.quizAccessRequest.QuizAccessRequest
-import com.core.data.reqres.quiz.quizDiscussion.QuizDiscussionResponse
-import com.core.data.reqres.quiz.quizGrade.QuizGradeResponse
-import com.core.data.reqres.quiz.userAccessQuiz.QuizAccesResponse
-import com.core.di.ApiContractQuiz
+import com.core.di.ApiContractMateri
 import org.json.JSONException
 import org.json.JSONObject
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class QuizRepository @Inject constructor(
-    private val api: ApiContractQuiz
-) {
-    fun accessQuiz(id: Int, quizAccessRequest: QuizAccessRequest): LiveData<Result<QuizAccesResponse>> = liveData {
+class MateriRepository @Inject constructor(
+    private val api: ApiContractMateri
+)
+{
+    fun getMateri(): LiveData<Result<MateriResponse>> = liveData {
         emit(Result.Loading)
-        val response =  api.accesQuiz(id, quizAccessRequest)
-        val responseBody = response.body()
-        try {
-            if(response.isSuccessful && responseBody != null){
-                emit(Result.Success(responseBody))
-            }else{
-                val errorBody = response.errorBody()?.string()
-                val errorMessage = try{
-                    JSONObject(errorBody).getString("message")
-                }catch (e: JSONException){
-                    "Unknown Error Occured"
-                }
-                emit(Result.Error(errorMessage))
-            }
-        }catch (e: Exception){
-            emit(Result.Error(e.message ?: "An error occurred"))
-        }
-    }
-
-    fun getQuiz(id: Int): LiveData<Result<QuizResponse>> = liveData {
-        emit(Result.Loading)
-        val response =  api.getQuiz(id)
+        val response =  api.getMateri()
         val responseBody = response.body()
         try{
             if(response.isSuccessful && responseBody != null){
@@ -60,9 +38,9 @@ class QuizRepository @Inject constructor(
         }
     }
 
-    fun getQuizGrade(id: Int): LiveData<Result<QuizGradeResponse>> = liveData {
+    fun getSpesificMateri(id: Int): LiveData<Result<SpesificMateriResponse>> = liveData {
         emit(Result.Loading)
-        val response =  api.getQuizGrade(id)
+        val response =  api.getSpecificMateri(id)
         val responseBody = response.body()
         try{
             if(response.isSuccessful && responseBody != null){
@@ -81,9 +59,9 @@ class QuizRepository @Inject constructor(
         }
     }
 
-    fun getQuizDiscussion(id: Int): LiveData<Result<QuizDiscussionResponse>> = liveData {
+    fun getMateriKategori(): LiveData<Result<KategoriMateriResponse>> = liveData {
         emit(Result.Loading)
-        val response =  api.getQuizDiscussion(id)
+        val response =  api.getKategoriMateri()
         val responseBody = response.body()
         try{
             if(response.isSuccessful && responseBody != null){
@@ -102,4 +80,24 @@ class QuizRepository @Inject constructor(
         }
     }
 
+    fun postAccesMateri(id: Int): LiveData<Result<UserAccessResponse>> = liveData {
+        emit(Result.Loading)
+        val response =  api.postAccess(id)
+        val responseBody = response.body()
+        try{
+            if(response.isSuccessful && responseBody != null){
+                emit(Result.Success(responseBody))
+            }else{
+                val errorBody = response.errorBody()?.string()
+                val errorMessage = try{
+                    JSONObject(errorBody).getString("message")
+                }catch (e: JSONException){
+                    "Unknown Error Occured"
+                }
+                emit(Result.Error(errorMessage))
+            }
+        }catch (e: Exception){
+            emit(Result.Error(e.message ?: "An error occurred"))
+        }
+    }
 }
