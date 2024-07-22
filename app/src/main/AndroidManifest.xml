@@ -17,6 +17,12 @@
         android:theme="@style/Theme.Nasho"
         tools:targetApi="31">
         <activity
+            android:name=".features.home_materi.PembahasanFragment"
+            android:exported="false" />
+        <activity
+            android:name=".features.quiz.quizDiscussion.PembahasanMateri"
+            android:exported="false" />
+        <activity
             android:name=".features.quiz.quizDiscussion.QuizDiscussion"
             android:exported="false" />
         <activity

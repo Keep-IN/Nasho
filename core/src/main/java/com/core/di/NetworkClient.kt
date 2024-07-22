@@ -22,7 +22,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class NetworkClient {
     companion object{
-        private const val  BASE_URL =""
+        private const val  BASE_URL ="https://enormous-mint-tomcat.ngrok-free.app/"
         private const val token = ""
     }
     @Singleton
