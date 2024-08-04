@@ -40,7 +40,7 @@ class QuizActivity : AppCompatActivity() {
     private var isItemSelected = false
     private var idPilihan: String = ""
     private var idSoal: String = ""
-    private var idQuiz: String = "a2011811-212a-4d15-a415-3fb7e437b432"
+    private var idQuiz: String = "ba6309d9-aa93-49ca-909b-d30fc5d2a06f"
     private var idMateri: String = "d2bf909e-9f05-45bf-a55b-f2b8b6d47e3f"
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityQuizBinding.inflate(layoutInflater)
@@ -63,6 +63,7 @@ class QuizActivity : AppCompatActivity() {
                     showQuiz(index)
                 } else {
                     startActivity(Intent(this, QuizGrade::class.java))
+                    finish()
                 }
             },2000)
         }
