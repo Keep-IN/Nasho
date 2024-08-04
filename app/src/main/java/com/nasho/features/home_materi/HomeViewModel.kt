@@ -9,6 +9,14 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val repository: MateriRepository
 ): ViewModel() {
-    fun getMateri() = repository.getMateri()
+    fun getMateri(
+        kategori: String
+    ) = repository.getMateri(kategori)
+
+    fun getSpesificMateri(id: Int) = repository.getSpesificMateri(id)
+
+    fun getMateriKategori() = repository.getMateriKategori()
+
+    fun postAccessMateri(id: Int) = repository.postAccesMateri(id)
 
 }

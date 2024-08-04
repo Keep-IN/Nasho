@@ -2,12 +2,17 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        app:cardBackgroundColor="#CEF4F1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="327dp"
@@ -31,16 +36,6 @@
                 android:text="Teori Dasar Nahwu"
                 app:layout_constraintStart_toStartOf="@+id/textView33"
                 app:layout_constraintTop_toBottomOf="@+id/textView33" />
-
-            <TextView
-                android:id="@+id/textView35"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:text="Skor Kuis"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/ivBelajar"
@@ -80,7 +75,7 @@
                 app:rpbShowProgressText="false" />
 
             <ImageView
-                android:id="@+id/imageView12"
+                android:id="@+id/ivQuiz"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
@@ -95,9 +90,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="Quiz"
-                app:layout_constraintEnd_toEndOf="@+id/imageView12"
-                app:layout_constraintStart_toStartOf="@+id/imageView12"
-                app:layout_constraintTop_toBottomOf="@+id/imageView12" />
+                app:layout_constraintEnd_toEndOf="@+id/ivQuiz"
+                app:layout_constraintStart_toStartOf="@+id/ivQuiz"
+                app:layout_constraintTop_toBottomOf="@+id/ivQuiz" />
 
             <com.mackhartley.roundedprogressbar.RoundedProgressBar
                 android:id="@+id/ProgressBar2"
@@ -106,16 +101,16 @@
                 android:layout_marginStart="6dp"
                 android:max="100"
                 android:progress="0"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView12"
-                app:layout_constraintStart_toEndOf="@+id/imageView12"
-                app:layout_constraintTop_toTopOf="@+id/imageView12"
+                app:layout_constraintBottom_toBottomOf="@+id/ivQuiz"
+                app:layout_constraintStart_toEndOf="@+id/ivQuiz"
+                app:layout_constraintTop_toTopOf="@+id/ivQuiz"
                 app:rpbBackgroundColor="#CACACA"
                 app:rpbCornerRadius="5dp"
                 app:rpbProgressColor="#015869"
                 app:rpbShowProgressText="false" />
 
             <ImageView
-                android:id="@+id/imageView13"
+                android:id="@+id/ivLulus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
@@ -132,9 +127,40 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="Lulus"
-                app:layout_constraintEnd_toEndOf="@+id/imageView13"
-                app:layout_constraintStart_toStartOf="@+id/imageView13"
-                app:layout_constraintTop_toBottomOf="@+id/imageView13" />
+                app:layout_constraintEnd_toEndOf="@+id/ivLulus"
+                app:layout_constraintStart_toStartOf="@+id/ivLulus"
+                app:layout_constraintTop_toBottomOf="@+id/ivLulus" />
+
+            <TextView
+                android:id="@+id/textView35"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="17dp"
+                android:text="Skor Kuis"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvSkor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Skor"
+                app:layout_constraintEnd_toEndOf="@+id/textView35"
+                app:layout_constraintStart_toStartOf="@+id/textView35"
+                tools:layout_editor_absoluteY="36dp" />
+
+            <ImageView
+                android:id="@+id/ivLock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/ic_lock" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

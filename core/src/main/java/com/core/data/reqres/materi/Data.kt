@@ -7,9 +7,7 @@ data class Data(
     @SerializedName("locked")
     val locked: Boolean,
     @SerializedName("materi")
-    val materi: List<Materi>,
-    @SerializedName("phase")
-    val phase: Int,
-    @SerializedName("ujian")
-    val ujian: List<Ujian>
+    val materi: List<DataMateri>,
+    val jenis: String,
+    val deskripsi: String,
 )

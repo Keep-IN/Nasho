@@ -12,14 +12,16 @@ import com.core.di.ApiContractMateri
 import org.json.JSONException
 import org.json.JSONObject
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class MateriRepository @Inject constructor(
     private val api: ApiContractMateri
 )
 {
-    fun getMateri(): LiveData<Result<MateriResponse>> = liveData {
+    fun getMateri(kategori:String): LiveData<Result<MateriResponse>> = liveData {
         emit(Result.Loading)
-        val response =  api.getMateri()
+        val response =  api.getMateri(kategori)
         val responseBody = response.body()
         try{
             if(response.isSuccessful && responseBody != null){

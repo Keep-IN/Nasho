@@ -7,7 +7,7 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface ApiContractSignup {
-    @POST("signup")
+    @POST("register")
     suspend fun signup(
         @Body signupRequest: SignupRequest
     ): Response<SignupResponse>

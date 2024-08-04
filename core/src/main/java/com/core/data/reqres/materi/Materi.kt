@@ -13,5 +13,8 @@ data class Materi(
     @SerializedName("sudah_mengambil")
     val sudahMengambil: Boolean,
     @SerializedName("tingkat")
-    val tingkat: Int
+    val tingkat: Int,
+    @SerializedName("phase")
+    var phase: Int,
+    val locked: Boolean
 )

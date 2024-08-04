@@ -34,7 +34,7 @@ class Home : AppCompatActivity() {
     }
     private fun updateProgress(){
         viewModel.viewModelScope.launch(Dispatchers.Main){
-            viewModel.getMateri().observe(this@Home){
+            viewModel.getMateri("3053b811-0544-4cea-b951-1b5f0b9ab36f").observe(this@Home){
                 when(it){
                     is Result.Success -> {
 

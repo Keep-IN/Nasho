@@ -89,4 +89,8 @@ class NetworkClient {
     fun provideApiQuiz(retrofit: Retrofit): ApiContractQuiz =
         retrofit.create(ApiContractQuiz::class.java)
 
+    @Singleton
+    @Provides
+    fun provideApiSignup(retrofit: Retrofit): ApiContractSignup =
+        retrofit.create(ApiContractSignup::class.java)
 }

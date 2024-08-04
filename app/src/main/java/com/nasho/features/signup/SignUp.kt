@@ -15,7 +15,9 @@ import com.core.data.network.Result
 import com.nasho.databinding.ActivitySignUpBinding
 import com.nasho.features.login.AuthViewModel
 import com.nasho.features.login.Login
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SignUp : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
     private val authViewModel: SignupViewModel by viewModels()

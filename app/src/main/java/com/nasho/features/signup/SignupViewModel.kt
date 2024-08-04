@@ -2,14 +2,21 @@ package com.nasho.features.signup
 
 import androidx.lifecycle.ViewModel
 import com.core.data.repositories.SignupRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class SignupViewModel @Inject constructor(
     private val repository: SignupRepository
-) : ViewModel()
-{
+) : ViewModel() {
     var isEmailValid = false
     var isPasswordValid = false
+    var isNamaValid = false
+
+    fun validateNama(nama: String): Boolean {
+        isNamaValid = nama.length in 6..30
+        return isNamaValid
+    }
 
     fun validateEmail(email: String): Boolean{
         isEmailValid = email.contains("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}\$".toRegex())
