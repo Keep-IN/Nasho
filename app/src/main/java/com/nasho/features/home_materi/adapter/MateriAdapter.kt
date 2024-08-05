@@ -28,22 +28,28 @@ class MateriAdapter : RecyclerView.Adapter<MateriAdapter.ViewHolder>() {
         holder.setData(data[position], itemListener, position == selectedPos)
     }
 
-    fun submitListPhase1(list: List<Materi>) {
-        val initialSize = itemCount
-        data.clear()
-        notifyItemRangeRemoved(0, initialSize)
-        list.forEach { it.phase = 1}
-        data.addAll(list)
-        notifyItemRangeInserted(0, data.size)
-    }
+//    fun submitListPhase1(list: List<Materi>) {
+//        val initialSize = itemCount
+//        data.clear()
+//        notifyItemRangeRemoved(0, initialSize)
+//        list.forEach { it.phase = 1}
+//        data.addAll(list)
+//        notifyItemRangeInserted(0, data.size)
+//    }
 
-    fun submitListPhase2(list: List<Materi>) {
-        val initialSize = itemCount
+//    fun submitListPhase2(list: List<Materi>) {
+//        val initialSize = itemCount
+//        data.clear()
+//        notifyItemRangeRemoved(0, initialSize)
+//        list.forEach { it.phase = 2}
+//        data.addAll(list)
+//        notifyItemRangeInserted(0, data.size)
+//    }
+
+    fun submitList(list: List<Materi>) {
         data.clear()
-        notifyItemRangeRemoved(0, initialSize)
-        list.forEach { it.phase = 2}
         data.addAll(list)
-        notifyItemRangeInserted(0, data.size)
+        notifyDataSetChanged()
     }
 
     inner class ViewHolder(private val binding: MateriListViewBinding) : RecyclerView.ViewHolder(binding.root) {

@@ -32,8 +32,10 @@ import kotlinx.coroutines.withContext
 class MateriContainer : AppCompatActivity() {
     private lateinit var binding: ActivityMateriContainerBinding
     private val viewModel: HomeViewModel by viewModels()
-    private lateinit var materiAdapter: MateriAdapter
-    private lateinit var ujianAdapter: UjianAdapter
+    private lateinit var materiAdapterPhase1: MateriAdapter
+    private lateinit var ujianAdapterPhase1: UjianAdapter
+    private lateinit var materiAdapterPhase2: MateriAdapter
+    private lateinit var ujianAdapterPhase2: UjianAdapter
     private lateinit var dataMateri: MutableList<Materi>
     private lateinit var dataUjian: MutableList<Ujian>
 
@@ -60,37 +62,40 @@ class MateriContainer : AppCompatActivity() {
     }
 
     private fun initialRecyclerMateri(){
-        val layoutManagerMateri1 =
-            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        // Setup for Materi Phase 1 RecyclerView
+        val layoutManagerMateri1 = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.rvMateri.layoutManager = layoutManagerMateri1
-
-        val layoutManagerMateri2 =
-            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        binding.rvMateri2.layoutManager = layoutManagerMateri2
-
-        materiAdapter = MateriAdapter()
-
-        binding.rvMateri.adapter = materiAdapter
-        binding.rvMateri2.adapter = materiAdapter
-
-        materiAdapter.setOnClickItem { selectedMateri ->
+        materiAdapterPhase1 = MateriAdapter()
+        binding.rvMateri.adapter = materiAdapterPhase1
+        materiAdapterPhase1.setOnClickItem { selectedMateri ->
             rvClickListenerMateri(selectedMateri)
         }
 
-        val layoutManagerUjian =
-            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        binding.rvUjian.layoutManager = layoutManagerUjian
+        // Setup for Materi Phase 2 RecyclerView
+        val layoutManagerMateri2 = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        binding.rvMateri2.layoutManager = layoutManagerMateri2
+        materiAdapterPhase2 = MateriAdapter()
+        binding.rvMateri2.adapter = materiAdapterPhase2
+        materiAdapterPhase2.setOnClickItem { selectedMateri ->
+            rvClickListenerMateri(selectedMateri)
+        }
 
-        val layoutManagerUjian2 =
-            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        // Setup for Ujian Phase 1 RecyclerView
+        val layoutManagerUjian1 = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        binding.rvUjian.layoutManager = layoutManagerUjian1
+        ujianAdapterPhase1 = UjianAdapter()
+        binding.rvUjian.adapter = ujianAdapterPhase1
+        ujianAdapterPhase1.setOnClickItem { selectedUjian ->
+            rvClickListenerUjian(selectedUjian)
+        }
+
+        // Setup for Ujian Phase 2 RecyclerView
+        val layoutManagerUjian2 = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.rvUjian2.layoutManager = layoutManagerUjian2
-
-        ujianAdapter = UjianAdapter()
-        binding.rvUjian.adapter = ujianAdapter
-        binding.rvUjian2.adapter = ujianAdapter
-
-        ujianAdapter.setOnClickItem { selectedProduct ->
-            rvClickListenerUjian(selectedProduct)
+        ujianAdapterPhase2 = UjianAdapter()
+        binding.rvUjian2.adapter = ujianAdapterPhase2
+        ujianAdapterPhase2.setOnClickItem { selectedUjian ->
+            rvClickListenerUjian(selectedUjian)
         }
     }
 
@@ -102,11 +107,20 @@ class MateriContainer : AppCompatActivity() {
                         is Result.Success -> {
                             // Ensure data is available before submitting to the adapter
 
-                            materiAdapter.submitListPhase1(it.data.data[0].materi[0].materi)
-                            ujianAdapter.submitListPhase1(it.data.data[0].materi[0].ujian)
-                            materiAdapter.submitListPhase2(it.data.data[0].materi[0].materi)
-                            ujianAdapter.submitListPhase2(it.data.data[0].materi[0].ujian)
-                            Log.d("ntah", it.data.data[0].materi[0].materi.toString())
+                            val materiListPhase1 = it.data.data[0].materi[0].materi.filter { it.phase == 1 }
+                            val materiListPhase2 = it.data.data[0].materi[1].materi.filter { it.phase == 2 }
+                            val ujianListPhase1 = it.data.data[0].materi[0].ujian.filter { it.phase_ujian == 1 }
+                            val ujianListPhase2 = it.data.data[0].materi[1].ujian.filter { it.phase_ujian == 2 }
+
+                            materiAdapterPhase1.submitList(materiListPhase1)
+                            materiAdapterPhase2.submitList(materiListPhase2)
+                            ujianAdapterPhase1.submitList(ujianListPhase1)
+                            ujianAdapterPhase2.submitList(ujianListPhase2)
+//                            materiAdapterPhase1.submitListPhase1(it.data.data[0].materi[0].materi)
+//                            ujianAdapterPhase1.submitListPhase1(it.data.data[0].materi[0].ujian)
+//                            materiAdapterPhase2.submitListPhase2(it.data.data[0].materi[0].materi)
+//                            ujianAdapterPhase2.submitListPhase2(it.data.data[0].materi[0].ujian)
+//                            Log.d("ntah", it.data.data[0].materi[0].materi.toString())
 //                            materiAdapter.submitListPhase1(dataMateri)
 //                            ujianAdapter.submitListPhase1(dataUjian)
 //                            materiAdapter.submitListPhase2(dataMateri)

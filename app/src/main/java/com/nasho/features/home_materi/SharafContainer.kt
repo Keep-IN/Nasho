@@ -52,10 +52,10 @@ class SharafContainer : AppCompatActivity() {
                 .observe(this@SharafContainer){
                     when(it){
                         is Result.Success -> {
-                            materiAdapter.submitListPhase1(dataMateri)
-                            ujianAdapter.submitListPhase1(dataUjian)
-                            materiAdapter.submitListPhase2(dataMateri)
-                            ujianAdapter.submitListPhase2(dataUjian)
+//                            materiAdapter.submitListPhase1(dataMateri)
+//                            ujianAdapter.submitListPhase1(dataUjian)
+//                            materiAdapter.submitListPhase2(dataMateri)
+//                            ujianAdapter.submitListPhase2(dataUjian)
                         }
                         is Result.Error -> {
                             //finished()

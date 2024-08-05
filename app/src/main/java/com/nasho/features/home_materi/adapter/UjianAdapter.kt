@@ -26,22 +26,27 @@ class UjianAdapter : RecyclerView.Adapter<UjianAdapter.ViewHolder>(){
         holder.setData(data[position], itemListener, position == selectedPos)
     }
 
-    fun submitListPhase1(list: List<Ujian>) {
-        val initialSize = itemCount
+//    fun submitListPhase1(list: List<Ujian>) {
+//        val initialSize = itemCount
+//        data.clear()
+//        notifyItemRangeRemoved(0, initialSize)
+//        list.forEach { it.phase_ujian = 1}
+//        data.addAll(list)
+//        notifyItemRangeInserted(0, data.size)
+//    }
+//
+//    fun submitListPhase2(list: List<Ujian>) {
+//        val initialSize = itemCount
+//        data.clear()
+//        notifyItemRangeRemoved(0, initialSize)
+//        list.forEach { it.phase_ujian = 2}
+//        data.addAll(list)
+//        notifyItemRangeInserted(0, data.size)
+//    }
+    fun submitList(list: List<Ujian>) {
         data.clear()
-        notifyItemRangeRemoved(0, initialSize)
-        list.forEach { it.phase_ujian = 1}
         data.addAll(list)
-        notifyItemRangeInserted(0, data.size)
-    }
-
-    fun submitListPhase2(list: List<Ujian>) {
-        val initialSize = itemCount
-        data.clear()
-        notifyItemRangeRemoved(0, initialSize)
-        list.forEach { it.phase_ujian = 2}
-        data.addAll(list)
-        notifyItemRangeInserted(0, data.size)
+        notifyDataSetChanged()
     }
 
     inner class ViewHolder(private val binding: UjianListViewBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -57,7 +62,7 @@ class UjianAdapter : RecyclerView.Adapter<UjianAdapter.ViewHolder>(){
                     textView36.text = "Ujian Akhir"
                 }
                 textView38.text = item.nama
-                val nilai = item.riwayat[0].nilai?.toString()
+                val nilai = item.riwayat?.firstOrNull()?.nilai?.toString() ?: "N/A"
                 textView44.text = nilai
 
                 if (item.riwayat != null && item.riwayat.isNotEmpty()) {
