@@ -1,8 +1,21 @@
 package com.nasho.features.login
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import com.core.data.network.Result
+import com.core.data.repositories.LoginRepository
+import com.core.data.reqres.login.LoginResponse
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class AuthViewModel():ViewModel() {
+@HiltViewModel
+class AuthViewModel @Inject constructor(
+    private val loginRepository: LoginRepository
+): ViewModel() {
+
+    fun login(email: String, password: String): LiveData<Result<LoginResponse>> {
+        return loginRepository.login(email, password)
+    }
 
     var isEmailValid = false
     var isPasswordValid = false
@@ -20,4 +33,6 @@ class AuthViewModel():ViewModel() {
     fun pwDigits(password: String): Boolean {
         return password.length >= 8
     }
+
+
 }

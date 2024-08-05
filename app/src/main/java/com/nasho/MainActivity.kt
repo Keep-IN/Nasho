@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.nasho.databinding.ActivityMainBinding
-import com.nasho.features.quiz.quizDiscussion.PembahasanMateri
+import com.nasho.features.login.Login
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -21,8 +21,8 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        binding.textView.setOnClickListener {
-            val intent = Intent(this, PembahasanMateri::class.java)
+        binding.cvNextOn.setOnClickListener {
+            val intent = Intent(this, Login::class.java)
             startActivity(intent)
         }
     }
