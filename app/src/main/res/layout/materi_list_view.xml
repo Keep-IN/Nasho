@@ -25,7 +25,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:fontFamily="@font/manrope_semibold"
                 android:text="Materi 1"
+                android:textColor="#6B6B6B"
+                android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,7 +37,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
+                android:fontFamily="@font/manrope_semibold"
                 android:text="Teori Dasar Nahwu"
+                android:textColor="#121212"
                 app:layout_constraintStart_toStartOf="@+id/textView33"
                 app:layout_constraintTop_toBottomOf="@+id/textView33" />
 
@@ -54,7 +59,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="16dp"
+                android:fontFamily="@font/manrope_semibold"
                 android:text="Belajar Materi"
+                android:textColor="#000000"
+                android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/ivBelajar"
                 app:layout_constraintStart_toStartOf="@+id/ivBelajar"
@@ -90,7 +98,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
+                android:fontFamily="@font/manrope_semibold"
                 android:text="Quiz"
+                android:textColor="#000000"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView37"
                 app:layout_constraintEnd_toEndOf="@+id/ivQuiz"
                 app:layout_constraintStart_toStartOf="@+id/ivQuiz"
                 app:layout_constraintTop_toBottomOf="@+id/ivQuiz" />
@@ -127,7 +139,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
+                android:fontFamily="@font/manrope_semibold"
                 android:text="Lulus"
+                android:textColor="#000000"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView39"
                 app:layout_constraintEnd_toEndOf="@+id/ivLulus"
                 app:layout_constraintStart_toStartOf="@+id/ivLulus"
                 app:layout_constraintTop_toBottomOf="@+id/ivLulus" />
@@ -138,7 +154,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="17dp"
+                android:fontFamily="@font/manrope_semibold"
                 android:text="Skor Kuis"
+                android:textColor="#111927"
+                android:textSize="10sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -147,7 +166,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
+                android:fontFamily="@font/manrope_semibold"
                 android:text="Skor"
+                android:textColor="#111927"
+                android:textSize="10sp"
                 app:layout_constraintEnd_toEndOf="@+id/textView35"
                 app:layout_constraintStart_toStartOf="@+id/textView35"
                 app:layout_constraintTop_toBottomOf="@+id/textView35" />

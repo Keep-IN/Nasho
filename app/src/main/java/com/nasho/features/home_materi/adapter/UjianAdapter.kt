@@ -56,6 +56,8 @@ class UjianAdapter : RecyclerView.Adapter<UjianAdapter.ViewHolder>(){
             }
 
             binding.apply {
+                var progress: Double = 0.0
+
                 if (item.phase_ujian == 1){
                     textView36.text = "Ujian Tengah"
                 } else {
@@ -66,6 +68,7 @@ class UjianAdapter : RecyclerView.Adapter<UjianAdapter.ViewHolder>(){
                 textView44.text = nilai
 
                 if (item.riwayat != null && item.riwayat.isNotEmpty()) {
+                    progress = 100.0
                     if (item.riwayat[0].lulus) {
                         binding.ivUjian.setImageResource(R.drawable.ic_done)
                         binding.ivSelesai.setImageResource(R.drawable.ic_done)
@@ -78,6 +81,8 @@ class UjianAdapter : RecyclerView.Adapter<UjianAdapter.ViewHolder>(){
                     binding.ivUjian.setImageResource(R.drawable.ic_undone)
                     binding.ivSelesai.setImageResource(R.drawable.ic_undone)
                 }
+
+                ProgressBar.setProgressPercentage(progress)
 
                 if(item.locked){
                     ivLock.visibility = View.VISIBLE

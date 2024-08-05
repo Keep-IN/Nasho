@@ -58,11 +58,21 @@ class MateriAdapter : RecyclerView.Adapter<MateriAdapter.ViewHolder>() {
                 listener?.invoke(item)
             }
 
+            var sudahMengambil: Double = 0.0
+            if (item.sudahMengambil) {
+                sudahMengambil = 100.0
+            }
+            binding.ProgressBar1.setProgressPercentage(sudahMengambil)
+
+            var quiz: Double = 0.0
+
             binding.textView33.text = "Materi ${item.tingkat}"
             binding.textView34.text = item.judul
 
             if (item.quiz != null && item.quiz.isNotEmpty()) {
                 binding.tvSkor.text = item.quiz.getOrNull(itemCount)?.nilai?.toString() ?: "N/A"
+                quiz = 100.0
+                binding.ProgressBar2.setProgressPercentage(quiz)
             } else {
                 binding.tvSkor.text = "N/A"
             }
@@ -93,6 +103,7 @@ class MateriAdapter : RecyclerView.Adapter<MateriAdapter.ViewHolder>() {
 //            } else {
 //                binding.ivLock.visibility = View.GONE
 //            }
+
         }
     }
 
