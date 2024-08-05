@@ -2,9 +2,9 @@ package com.core.di
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.preference.PreferenceManager
 import com.core.data.repositories.MateriRepository
 import com.core.data.repositories.QuizRepository
-import android.preference.PreferenceManager
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
 import dagger.Provides
@@ -73,6 +73,13 @@ class NetworkClient {
             .client(okHttpClient)
             .build()
 
+
+    @Singleton
+    @Provides
+    fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
+        return PreferenceManager.getDefaultSharedPreferences(context)
+    }
+
     @Singleton
     @Provides
     fun provideApiMateri(retrofit: Retrofit): MateriRepository =
@@ -80,14 +87,8 @@ class NetworkClient {
 
     @Singleton
     @Provides
-    fun provideApiQuiz(retrofit: Retrofit): QuizRepository =
-        retrofit.create(QuizRepository::class.java)
-
-    @Singleton
-    @Provides
-    fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
-        return PreferenceManager.getDefaultSharedPreferences(context)
-    }
+    fun provideApiQuiz(retrofit: Retrofit): ApiContractQuiz =
+        retrofit.create(ApiContractQuiz::class.java)
 
     @Singleton
     @Provides

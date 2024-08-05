@@ -81,7 +81,7 @@ class QuizRepository @Inject constructor(
         }
     }
 
-    fun getQuizDiscussion(id: Int): LiveData<Result<QuizDiscussionResponse>> = liveData {
+    fun getQuizDiscussion(id: String): LiveData<Result<QuizDiscussionResponse>> = liveData {
         emit(Result.Loading)
         val response =  api.getQuizDiscussion(id)
         val responseBody = response.body()

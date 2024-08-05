@@ -16,7 +16,6 @@ import com.nasho.databinding.ActivityPembahasanMateriBinding
 import com.nasho.features.quiz.QuizViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
-
 @AndroidEntryPoint
 class PembahasanMateri : AppCompatActivity() {
     private lateinit var binding: ActivityPembahasanMateriBinding
@@ -24,7 +23,8 @@ class PembahasanMateri : AppCompatActivity() {
     private val adapterListPembahasan: PembahasanAdapter by lazy { PembahasanAdapter() }
     private lateinit var dataJawaban: MutableList<DataJawaban>
 
-    private val id = "ca8c35c6-b92c-4753-97ab-45efc3bd812f".toInt()
+    // Hardcoded UUID as String
+    private val id = "fb0294a4-c71a-44dc-8ef2-fa7a9e586990"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityPembahasanMateriBinding.inflate(layoutInflater)
@@ -40,6 +40,7 @@ class PembahasanMateri : AppCompatActivity() {
         binding.rvPembahasan.layoutManager = LinearLayoutManager(this)
         binding.rvPembahasan.adapter = adapterListPembahasan
 
+        // Use the UUID as String in API call
         viewModel.getQuizDiscussion(id).observe(this@PembahasanMateri) {
             when (it) {
                 is Result.Success -> {

@@ -89,7 +89,7 @@ class QuizActivity : AppCompatActivity() {
         }
     }
 
-    private fun getDiscussion(id: Int){
+    private fun getDiscussion(id: String){
         viewModel.viewModelScope.launch(Dispatchers.Main){
             viewModel.getQuizDiscussion(id).observe(this@QuizActivity){
                 when(it){

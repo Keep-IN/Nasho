@@ -30,6 +30,6 @@ interface ApiContractQuiz {
 
     @GET("quiz/pembahasan/{id}")
     suspend fun getQuizDiscussion(
-        @Path("id") id: Int
+        @Path("id") id: String
     ): Response<QuizDiscussionResponse>
 }

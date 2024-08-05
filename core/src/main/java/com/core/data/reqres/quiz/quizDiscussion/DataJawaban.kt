@@ -11,5 +11,7 @@ data class DataJawaban(
     @SerializedName("soal")
     val soal: String,
     @SerializedName("soal_quiz")
-    val soalQuiz: String
+    val soalQuiz: String,
+    @SerializedName("pembahasan")
+    val pembahasan: String
 )
