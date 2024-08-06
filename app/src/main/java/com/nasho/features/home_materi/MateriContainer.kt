@@ -50,9 +50,15 @@ class MateriContainer : AppCompatActivity() {
         observeViewModel()
 
         binding.imageView10.setOnClickListener {
-            finish()
+            onBackPressed()
         }
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finishAffinity()
+    }
+
     private fun View.applySystemWindowInsets() {
         ViewCompat.setOnApplyWindowInsetsListener(this) { view, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())

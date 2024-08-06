@@ -21,13 +21,16 @@ import com.nasho.features.home_materi.adapter.UjianAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class SharafContainer : AppCompatActivity() {
     private lateinit var binding: ActivitySharafContainerBinding
     private val viewModel: HomeViewModel by viewModels()
-    private lateinit var materiAdapter: MateriAdapter
-    private lateinit var ujianAdapter: UjianAdapter
+    private lateinit var materiAdapterPhase1: MateriAdapter
+    private lateinit var ujianAdapterPhase1: UjianAdapter
+    private lateinit var materiAdapterPhase2: MateriAdapter
+    private lateinit var ujianAdapterPhase2: UjianAdapter
     private lateinit var dataMateri: MutableList<Materi>
     private lateinit var dataUjian: MutableList<Ujian>
 
@@ -39,70 +42,99 @@ class SharafContainer : AppCompatActivity() {
         binding.root.applySystemWindowInsets()
 
         initialRecyclerMateri()
+        observeViewModel()
+
+        binding.imageView10.setOnClickListener {
+            onBackPressed()
+        }
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finishAffinity()
+    }
+
     private fun View.applySystemWindowInsets() {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+    }
 
-        viewModel.viewModelScope.launch(Dispatchers.IO) {
-            viewModel.getMateri("3053b811-0544-4cea-b951-1b5f0b9ab36f")
-                .observe(this@SharafContainer){
-                    when(it){
+    private fun initialRecyclerMateri(){
+        val layoutManagerMateri1 = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        binding.rvMateri.layoutManager = layoutManagerMateri1
+        materiAdapterPhase1 = MateriAdapter()
+        binding.rvMateri.adapter = materiAdapterPhase1
+        materiAdapterPhase1.setOnClickItem { selectedMateri ->
+            rvClickListenerMateri(selectedMateri)
+        }
+
+        // Setup for Materi Phase 2 RecyclerView
+        val layoutManagerMateri2 = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        binding.rvMateri2.layoutManager = layoutManagerMateri2
+        materiAdapterPhase2 = MateriAdapter()
+        binding.rvMateri2.adapter = materiAdapterPhase2
+        materiAdapterPhase2.setOnClickItem { selectedMateri ->
+            rvClickListenerMateri(selectedMateri)
+        }
+
+        // Setup for Ujian Phase 1 RecyclerView
+        val layoutManagerUjian1 = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        binding.rvUjian.layoutManager = layoutManagerUjian1
+        ujianAdapterPhase1 = UjianAdapter()
+        binding.rvUjian.adapter = ujianAdapterPhase1
+        ujianAdapterPhase1.setOnClickItem { selectedUjian ->
+            rvClickListenerUjian(selectedUjian)
+        }
+
+        // Setup for Ujian Phase 2 RecyclerView
+        val layoutManagerUjian2 = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        binding.rvUjian2.layoutManager = layoutManagerUjian2
+        ujianAdapterPhase2 = UjianAdapter()
+        binding.rvUjian2.adapter = ujianAdapterPhase2
+        ujianAdapterPhase2.setOnClickItem { selectedUjian ->
+            rvClickListenerUjian(selectedUjian)
+        }
+    }
+
+    private fun observeViewModel() {
+        viewModel.viewModelScope.launch {
+            withContext(Dispatchers.Main) {
+                viewModel.getMateri("3053b811-0544-4cea-b951-1b5f0b9ab36f").observe(this@SharafContainer) {
+                    when (it) {
                         is Result.Success -> {
+                            // Ensure data is available before submitting to the adapter
+
+                            val materiListPhase1 = it.data.data[0].materi[0].materi.filter { it.phase == 1 }
+                            val materiListPhase2 = it.data.data[0].materi[1].materi.filter { it.phase == 2 }
+                            val ujianListPhase1 = it.data.data[0].materi[0].ujian.filter { it.phase_ujian == 1 }
+                            val ujianListPhase2 = it.data.data[0].materi[1].ujian.filter { it.phase_ujian == 2 }
+
+                            materiAdapterPhase1.submitList(materiListPhase1)
+                            materiAdapterPhase2.submitList(materiListPhase2)
+                            ujianAdapterPhase1.submitList(ujianListPhase1)
+                            ujianAdapterPhase2.submitList(ujianListPhase2)
+//                            materiAdapterPhase1.submitListPhase1(it.data.data[0].materi[0].materi)
+//                            ujianAdapterPhase1.submitListPhase1(it.data.data[0].materi[0].ujian)
+//                            materiAdapterPhase2.submitListPhase2(it.data.data[0].materi[0].materi)
+//                            ujianAdapterPhase2.submitListPhase2(it.data.data[0].materi[0].ujian)
+//                            Log.d("ntah", it.data.data[0].materi[0].materi.toString())
 //                            materiAdapter.submitListPhase1(dataMateri)
 //                            ujianAdapter.submitListPhase1(dataUjian)
 //                            materiAdapter.submitListPhase2(dataMateri)
 //                            ujianAdapter.submitListPhase2(dataUjian)
                         }
                         is Result.Error -> {
-                            //finished()
                             Log.d("error getMateri", it.errorMessage)
                         }
                         else -> {
-                            //loading()
                             Log.d("Unexpected Error", "error")
                         }
                     }
                 }
-        }
-
-//        //materi
-//        val rvMateri = findViewById<RecyclerView>(R.id.rvMateri)
-//        val layoutManager = LinearLayoutManager(this@SharafContainer, LinearLayoutManager.HORIZONTAL, false)
-//        rvMateri.layoutManager = layoutManager
-//        val  materiAdapter = MateriAdapter()
-//        rvMateri.adapter = materiAdapter
-//
-//        //Ujian
-//        val rvUjian = findViewById<RecyclerView>(R.id.rvUjian)
-//        val layoutManager2 = LinearLayoutManager(this@SharafContainer, LinearLayoutManager.HORIZONTAL, false)
-//        rvUjian.layoutManager = layoutManager2
-//        val  ujianAdapter = UjianAdapter()
-//        rvUjian.adapter = ujianAdapter
-    }
-
-    private fun initialRecyclerMateri(){
-        val layoutManagerMateri =
-            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        binding.rvMateri.layoutManager = layoutManagerMateri
-
-        materiAdapter = MateriAdapter()
-        binding.rvMateri.adapter = materiAdapter
-
-        materiAdapter.setOnClickItem { selectedMateri ->
-            rvClickListenerMateri(selectedMateri)
-        }
-
-        binding.rvUjian.layoutManager = layoutManagerMateri
-
-        ujianAdapter = UjianAdapter()
-        binding.rvUjian.adapter = ujianAdapter
-
-        ujianAdapter.setOnClickItem { selectedProduct ->
-            rvClickListenerUjian(selectedProduct)
+            }
         }
     }
 
