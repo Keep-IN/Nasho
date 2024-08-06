@@ -1,6 +1,11 @@
 package com.nasho.features.quiz
 
+import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
