@@ -8,10 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.nasho.databinding.ActivityMainBinding
-import com.nasho.features.home.Home
+import com.nasho.features.home_materi.Home
 import com.nasho.features.login.Login
 import com.nasho.features.quiz.quizDiscussion.PembahasanMateri
-import com.nasho.features.settings.Pengaturan
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
