@@ -15,7 +15,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Nasho"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".features.Materi.MateriVideo"
+            android:exported="false"
+            android:configChanges="orientation|screenSize|screenLayout"/>
         <activity
             android:name=".features.home_materi.PembahasanFragment"
             android:exported="false" />

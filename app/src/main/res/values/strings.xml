@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Nasho</string>
+    <string name="play_pause">Play/Pause</string>
+    <string name="mute_unmute">Mute/Unmute</string>
 </resources>
