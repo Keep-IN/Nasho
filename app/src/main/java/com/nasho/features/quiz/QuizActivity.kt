@@ -128,6 +128,7 @@ class QuizActivity : AppCompatActivity() {
                     }
                     is Result.Error -> {
 
+
                     }
                     else -> {
 

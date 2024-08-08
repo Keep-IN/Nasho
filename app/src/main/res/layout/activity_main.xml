@@ -7,14 +7,77 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/textView"
+    <ImageView
+        android:id="@+id/imageView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="56dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/ic_onboard" />
+
+    <TextView
+        android:id="@+id/tvJudulUtama"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/manrope_semibold"
+        android:text="Ayo belajar bahasa arab"
+        android:textColor="#015869"
+        android:textSize="24dp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="343dp"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/manrope"
+        android:gravity="center"
+        android:text="Lorem ipsum dolor sit amet consectetur. Eleifend at morbi et viverra tortor condimentum mattis massa arcu. Tempor ut augue scelerisque lobortis libero. Lectus."
+        android:textColor="#015869 "
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/tvJudulUtama"
+        app:layout_constraintStart_toStartOf="@+id/tvJudulUtama"
+        app:layout_constraintTop_toBottomOf="@+id/tvJudulUtama" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="74dp"
+        android:layout_height="74dp"
+        android:layout_marginTop="40dp"
+
+        app:cardBackgroundColor="#015869"
+        app:cardCornerRadius="74dp"
+        app:layout_constraintEnd_toEndOf="@+id/textView15"
+        app:layout_constraintStart_toStartOf="@+id/textView15"
+        app:layout_constraintTop_toBottomOf="@+id/textView15">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            app:cardCornerRadius="70dp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvNextOn"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_gravity="center"
+                app:cardBackgroundColor="#015869"
+                app:cardCornerRadius="64dp">
+
+                <ImageView
+                    android:id="@+id/imageView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_panah" />
+            </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
