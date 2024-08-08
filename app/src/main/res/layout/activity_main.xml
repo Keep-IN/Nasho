@@ -46,10 +46,11 @@
         app:layout_constraintTop_toBottomOf="@+id/tvJudulUtama" />
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cvNext"
         android:layout_width="74dp"
         android:layout_height="74dp"
-        android:layout_marginTop="40dp"
 
+        android:layout_marginTop="40dp"
         app:cardBackgroundColor="#015869"
         app:cardCornerRadius="74dp"
         app:layout_constraintEnd_toEndOf="@+id/textView15"

@@ -78,13 +78,16 @@ class Login : AppCompatActivity() {
                             Log.d("Token", "token: ${result.data.data.accessToken}")
                             sPref.apply()
                             Toast.makeText(this@Login, "Login successful!", Toast.LENGTH_SHORT).show()
-                            val intent = Intent(this@Login, PembahasanMateri::class.java)
+                            val intent = Intent(this@Login, Home::class.java)
                             startActivity(intent)
                             finish()
                         }
                         is Result.Error -> {
 
                             Toast.makeText(this@Login, result.errorMessage, Toast.LENGTH_SHORT).show()
+                        }
+                        else -> {
+                            // Handle other cases if needed
                         }
                     }
                 })

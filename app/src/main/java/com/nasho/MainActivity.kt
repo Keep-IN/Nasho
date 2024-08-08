@@ -27,6 +27,10 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        binding.cvNext.setOnClickListener {
+            startActivity(Intent(this, Login::class.java))
+        }
+
         val sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
         val accessToken = sharedPref.getString("token", null)
 
