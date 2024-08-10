@@ -1,5 +1,6 @@
 package com.nasho.features.home_materi
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.enableEdgeToEdge
@@ -24,6 +25,15 @@ class Home : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(binding.root)
         binding.root.applySystemWindowInsets()
+
+        binding.apply {
+            cvNahwu.setOnClickListener{
+                startActivity(Intent(this@Home, MateriContainer::class.java))
+            }
+            cvSharaf.setOnClickListener{
+                startActivity(Intent(this@Home, SharafContainer::class.java))
+            }
+        }
     }
     private fun View.applySystemWindowInsets() {
         ViewCompat.setOnApplyWindowInsetsListener(this) { view, insets ->
@@ -32,21 +42,21 @@ class Home : AppCompatActivity() {
             insets
         }
     }
-    private fun updateProgress(){
-        viewModel.viewModelScope.launch(Dispatchers.Main){
-            viewModel.getMateri("3053b811-0544-4cea-b951-1b5f0b9ab36f").observe(this@Home){
-                when(it){
-                    is Result.Success -> {
-
-                    }
-                    is Result.Error -> {
-
-                    }
-                    else -> {
-
-                    }
-                }
-            }
-        }
-    }
+//    private fun updateProgress(){
+//        viewModel.viewModelScope.launch(Dispatchers.Main){
+//            viewModel.getMateri("").observe(this@Home){
+//                when(it){
+//                    is Result.Success -> {
+//
+//                    }
+//                    is Result.Error -> {
+//
+//                    }
+//                    else -> {
+//
+//                    }
+//                }
+//            }
+//        }
+//    }
 }

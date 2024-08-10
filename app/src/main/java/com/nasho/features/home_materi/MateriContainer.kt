@@ -122,15 +122,6 @@ class MateriContainer : AppCompatActivity() {
                             materiAdapterPhase2.submitList(materiListPhase2)
                             ujianAdapterPhase1.submitList(ujianListPhase1)
                             ujianAdapterPhase2.submitList(ujianListPhase2)
-//                            materiAdapterPhase1.submitListPhase1(it.data.data[0].materi[0].materi)
-//                            ujianAdapterPhase1.submitListPhase1(it.data.data[0].materi[0].ujian)
-//                            materiAdapterPhase2.submitListPhase2(it.data.data[0].materi[0].materi)
-//                            ujianAdapterPhase2.submitListPhase2(it.data.data[0].materi[0].ujian)
-//                            Log.d("ntah", it.data.data[0].materi[0].materi.toString())
-//                            materiAdapter.submitListPhase1(dataMateri)
-//                            ujianAdapter.submitListPhase1(dataUjian)
-//                            materiAdapter.submitListPhase2(dataMateri)
-//                            ujianAdapter.submitListPhase2(dataUjian)
                         }
                         is Result.Error -> {
                             Log.d("error getMateri", it.errorMessage)

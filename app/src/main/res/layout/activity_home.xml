@@ -152,6 +152,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/materialCardView">
 
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cvNahwu"
                     android:layout_width="160dp"
                     android:layout_height="match_parent"
                     android:layout_marginRight="3dp"
@@ -217,6 +218,7 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cvSharaf"
                     android:layout_width="160dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="3dp"
