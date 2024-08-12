@@ -29,6 +29,25 @@ class Home : AppCompatActivity() {
         updateProgress()
 
         binding.apply {
+            val judul = getLastLearnedMaterial()
+
+            if (judul.isNullOrEmpty().not()) {
+                // Misalnya Anda ingin menampilkan judul materi terakhir di suatu TextView
+                textView18.text = "$judul"
+
+                // Tambahkan listener untuk melanjutkan materi terakhir
+                if (judul == "Nahwu") {
+                    cvLast.setOnClickListener{
+                        startActivity(Intent(this@Home, MateriContainer::class.java))
+                    }
+                } else if (judul == "Sharaf") {
+                    cvLast.setOnClickListener{
+                        startActivity(Intent(this@Home, SharafContainer::class.java))
+                    }
+                } else {
+                    textView18.text = ""
+                }
+            }
             cvNahwu.setOnClickListener{
                 startActivity(Intent(this@Home, MateriContainer::class.java))
             }
@@ -44,6 +63,12 @@ class Home : AppCompatActivity() {
             insets
         }
     }
+
+    fun getLastLearnedMaterial(): String? {
+        val sharedPreferences = getSharedPreferences("judul", MODE_PRIVATE)
+        return sharedPreferences.getString("judul", "")
+    }
+
     private fun updateProgress(){
         viewModel.viewModelScope.launch(Dispatchers.Main){
             viewModel.getHomeStatistik().observe(this@Home){

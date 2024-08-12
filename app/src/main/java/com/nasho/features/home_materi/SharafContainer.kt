@@ -1,5 +1,6 @@
 package com.nasho.features.home_materi
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -43,11 +44,21 @@ class SharafContainer : AppCompatActivity() {
 
         initialRecyclerMateri()
         observeViewModel()
+        saveLastLearnedMaterial("Sharaf")
 
         binding.imageView10.setOnClickListener {
-            onBackPressedDispatcher
+            startActivity(Intent(this@SharafContainer, Home::class.java))
             finish()
+            saveLastLearnedMaterial("Sharaf")
         }
+    }
+
+    fun saveLastLearnedMaterial(judul: String) {
+        val sharedPreferences = getSharedPreferences("judul", MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.clear()
+        editor.putString("judul", judul)
+        editor.apply()
     }
 
 //    override fun onBackPressed() {

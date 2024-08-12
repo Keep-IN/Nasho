@@ -48,11 +48,21 @@ class MateriContainer : AppCompatActivity() {
 
         initialRecyclerMateri()
         observeViewModel()
+        saveLastLearnedMaterial("Nahwu")
 
         binding.imageView10.setOnClickListener {
-            onBackPressedDispatcher
+            startActivity(Intent(this@MateriContainer, Home::class.java))
             finish()
+            saveLastLearnedMaterial("Nahwu")
         }
+    }
+
+    fun saveLastLearnedMaterial(judul: String) {
+        val sharedPreferences = getSharedPreferences("judul", MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.clear()
+        editor.putString("judul", judul)
+        editor.apply()
     }
 
 //    override fun onBackPressed() {
