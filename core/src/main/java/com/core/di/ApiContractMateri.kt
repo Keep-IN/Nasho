@@ -1,5 +1,6 @@
 package com.core.di
 
+import com.core.data.reqres.home.statistik.StatistikHomeResponse
 import com.core.data.reqres.materi.MateriResponse
 import com.core.data.reqres.materi.kategoriMateri.KategoriMateriResponse
 import com.core.data.reqres.materi.spesificMateri.SpesificMateriResponse
@@ -28,4 +29,7 @@ interface ApiContractMateri {
     suspend fun postAccess(
         @Path("id") id: Int
     ): Response<UserAccessResponse>
+
+    @GET("statistik/home")
+    suspend fun getHomeStatistik(): Response<StatistikHomeResponse>
 }

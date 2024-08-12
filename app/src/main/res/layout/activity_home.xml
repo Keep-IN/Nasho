@@ -29,7 +29,7 @@
                 android:layout_marginTop="28dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/img_nasho" />
+                android:src="@drawable/img_nasho" />
 
             <TextView
                 android:id="@+id/textView9"
@@ -110,7 +110,7 @@
                         android:layout_height="wrap_content"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:srcCompat="@drawable/ic_home_1" />
+                        android:src="@drawable/ic_home_1" />
 
                     <TextView
                         android:id="@+id/textView18"
@@ -192,7 +192,7 @@
                             app:layout_constraintTop_toTopOf="@+id/textView20" />
 
                         <TextView
-                            android:id="@+id/textView24"
+                            android:id="@+id/tvDescN"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="18dp"
@@ -212,8 +212,8 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView24"
-                            app:srcCompat="@drawable/ic_nahwu" />
+                            app:layout_constraintTop_toBottomOf="@+id/tvDescN"
+                            android:src="@drawable/ic_nahwu" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>
 
@@ -258,7 +258,7 @@
                             app:layout_constraintTop_toTopOf="@+id/textView22" />
 
                         <TextView
-                            android:id="@+id/textView25"
+                            android:id="@+id/tvDescS"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="18dp"
@@ -276,8 +276,8 @@
                             android:layout_marginTop="4dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView25"
-                            app:srcCompat="@drawable/ic_sharaf" />
+                            app:layout_constraintTop_toBottomOf="@+id/tvDescS"
+                            android:src="@drawable/ic_sharaf" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>

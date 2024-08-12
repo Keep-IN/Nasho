@@ -26,6 +26,8 @@ class Home : AppCompatActivity() {
         setContentView(binding.root)
         binding.root.applySystemWindowInsets()
 
+        updateProgress()
+
         binding.apply {
             cvNahwu.setOnClickListener{
                 startActivity(Intent(this@Home, MateriContainer::class.java))
@@ -42,21 +44,29 @@ class Home : AppCompatActivity() {
             insets
         }
     }
-//    private fun updateProgress(){
-//        viewModel.viewModelScope.launch(Dispatchers.Main){
-//            viewModel.getMateri("").observe(this@Home){
-//                when(it){
-//                    is Result.Success -> {
-//
-//                    }
-//                    is Result.Error -> {
-//
-//                    }
-//                    else -> {
-//
-//                    }
-//                }
-//            }
-//        }
-//    }
+    private fun updateProgress(){
+        viewModel.viewModelScope.launch(Dispatchers.Main){
+            viewModel.getHomeStatistik().observe(this@Home){
+                when(it){
+                    is Result.Success -> {
+                        binding.apply {
+                            tvDescN.text = "${"Berhasil Menyelesaikan " + 
+                                    it.data.data?.get(0)?.kategori?.get(0)?.jumlahAksesUser + " dari " + 
+                                    it.data.data?.get(0)?.kategori?.get(0)?.jumlahMateri}"
+
+                            tvDescS.text = "${"Berhasil Menyelesaikan " +
+                                    it.data.data?.get(0)?.kategori?.get(1)?.jumlahAksesUser + " dari " +
+                                    it.data.data?.get(0)?.kategori?.get(1)?.jumlahMateri}"
+                        }
+                    }
+                    is Result.Error -> {
+
+                    }
+                    else -> {
+
+                    }
+                }
+            }
+        }
+    }
 }

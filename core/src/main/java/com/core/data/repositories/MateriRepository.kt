@@ -3,6 +3,7 @@ package com.core.data.repositories
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.core.data.network.Result
+import com.core.data.reqres.home.statistik.StatistikHomeResponse
 import com.core.data.reqres.materi.MateriResponse
 import com.core.data.reqres.materi.kategoriMateri.KategoriMateriResponse
 import com.core.data.reqres.materi.spesificMateri.SpesificMateriResponse
@@ -85,6 +86,27 @@ class MateriRepository @Inject constructor(
     fun postAccesMateri(id: Int): LiveData<Result<UserAccessResponse>> = liveData {
         emit(Result.Loading)
         val response =  api.postAccess(id)
+        val responseBody = response.body()
+        try{
+            if(response.isSuccessful && responseBody != null){
+                emit(Result.Success(responseBody))
+            }else{
+                val errorBody = response.errorBody()?.string()
+                val errorMessage = try{
+                    JSONObject(errorBody).getString("message")
+                }catch (e: JSONException){
+                    "Unknown Error Occured"
+                }
+                emit(Result.Error(errorMessage))
+            }
+        }catch (e: Exception){
+            emit(Result.Error(e.message ?: "An error occurred"))
+        }
+    }
+
+    fun getHomeStatistik(): LiveData<Result<StatistikHomeResponse>> = liveData {
+        emit(Result.Loading)
+        val response =  api.getHomeStatistik()
         val responseBody = response.body()
         try{
             if(response.isSuccessful && responseBody != null){

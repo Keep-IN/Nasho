@@ -19,4 +19,6 @@ class HomeViewModel @Inject constructor(
 
     fun postAccessMateri(id: Int) = repository.postAccesMateri(id)
 
+    fun getHomeStatistik() = repository.getHomeStatistik()
+
 }
