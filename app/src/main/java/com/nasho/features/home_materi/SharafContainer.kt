@@ -38,7 +38,7 @@ class SharafContainer : AppCompatActivity() {
         binding = ActivitySharafContainerBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_sharaf_container)
+        setContentView(binding.root)
         binding.root.applySystemWindowInsets()
 
         initialRecyclerMateri()
