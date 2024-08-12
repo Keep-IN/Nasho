@@ -50,14 +50,15 @@ class MateriContainer : AppCompatActivity() {
         observeViewModel()
 
         binding.imageView10.setOnClickListener {
-            onBackPressed()
+            onBackPressedDispatcher
+            finish()
         }
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        finishAffinity()
-    }
+//    override fun onBackPressed() {
+//        super.onBackPressedDispatcher
+//        finishAffinity()
+//    }
 
     private fun View.applySystemWindowInsets() {
         ViewCompat.setOnApplyWindowInsetsListener(this) { view, insets ->

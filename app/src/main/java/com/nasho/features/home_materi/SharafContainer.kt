@@ -45,14 +45,15 @@ class SharafContainer : AppCompatActivity() {
         observeViewModel()
 
         binding.imageView10.setOnClickListener {
-            onBackPressed()
+            onBackPressedDispatcher
+            finish()
         }
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        finishAffinity()
-    }
+//    override fun onBackPressed() {
+//        super.onBackPressedDispatcher
+//        finishAffinity()
+//    }
 
     private fun View.applySystemWindowInsets() {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
