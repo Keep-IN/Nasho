@@ -74,7 +74,7 @@ class MateriAdapter : RecyclerView.Adapter<MateriAdapter.ViewHolder>() {
                 quiz = 100.0
                 binding.ProgressBar2.setProgressPercentage(quiz)
             } else {
-                binding.tvSkor.text = "N/A"
+                binding.tvSkor.text = "0"
             }
 
             binding.ivBelajar.setImageResource(if (item.sudahMengambil) R.drawable.ic_done else R.drawable.ic_undone)
