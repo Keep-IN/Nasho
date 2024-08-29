@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.nasho.databinding.ActivityMainBinding
-import com.nasho.features.home_materi.MateriContainer
 import com.nasho.features.login.Login
 import com.nasho.features.signup.SignUp
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,7 +25,7 @@ class MainActivity : AppCompatActivity() {
             insets
         }
         binding.textView.setOnClickListener {
-            val intent = Intent(this,SignUp::class.java)
+            val intent = Intent(this, SignUp::class.java)
             startActivity(intent)
         }
     }
