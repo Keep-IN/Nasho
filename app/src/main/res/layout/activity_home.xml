@@ -32,7 +32,7 @@
                 android:src="@drawable/img_nasho" />
 
             <TextView
-                android:id="@+id/textView9"
+                android:id="@+id/tvJudulUtama"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -53,12 +53,12 @@
                 android:text="Learn"
                 android:textColor="#E57D1A"
                 android:textSize="24sp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView9"
-                app:layout_constraintStart_toEndOf="@+id/textView9"
-                app:layout_constraintTop_toTopOf="@+id/textView9" />
+                app:layout_constraintBottom_toBottomOf="@+id/tvJudulUtama"
+                app:layout_constraintStart_toEndOf="@+id/tvJudulUtama"
+                app:layout_constraintTop_toTopOf="@+id/tvJudulUtama" />
 
             <TextView
-                android:id="@+id/textView16"
+                android:id="@+id/tvJudulSpekMateri"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
@@ -79,9 +79,9 @@
                 android:layout_marginTop="21dp"
                 app:cardBackgroundColor="#2590A5"
                 app:cardCornerRadius="32dp"
-                app:layout_constraintEnd_toEndOf="@+id/textView16"
-                app:layout_constraintStart_toStartOf="@+id/textView16"
-                app:layout_constraintTop_toBottomOf="@+id/textView16"
+                app:layout_constraintEnd_toEndOf="@+id/tvJudulSpekMateri"
+                app:layout_constraintStart_toStartOf="@+id/tvJudulSpekMateri"
+                app:layout_constraintTop_toBottomOf="@+id/tvJudulSpekMateri"
                 app:strokeWidth="0dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -90,7 +90,7 @@
                     android:background="@drawable/bg_home_1">
 
                     <TextView
-                        android:id="@+id/textView17"
+                        android:id="@+id/tvKategoriMateri"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
@@ -121,8 +121,8 @@
                         android:text="Nahwu"
                         android:textColor="#FFFFFF"
                         android:textSize="18sp"
-                        app:layout_constraintStart_toStartOf="@+id/textView17"
-                        app:layout_constraintTop_toBottomOf="@+id/textView17" />
+                        app:layout_constraintStart_toStartOf="@+id/tvKategoriMateri"
+                        app:layout_constraintTop_toBottomOf="@+id/tvKategoriMateri" />
 
                     <TextView
                         android:id="@+id/textView19"

@@ -18,7 +18,7 @@
         android:src="@drawable/ic_onboard" />
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/tvJudulUtama"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -41,15 +41,16 @@
         android:text="Lorem ipsum dolor sit amet consectetur. Eleifend at morbi et viverra tortor condimentum mattis massa arcu. Tempor ut augue scelerisque lobortis libero. Lectus."
         android:textColor="#015869 "
         android:textSize="16dp"
-        app:layout_constraintEnd_toEndOf="@+id/textView9"
-        app:layout_constraintStart_toStartOf="@+id/textView9"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+        app:layout_constraintEnd_toEndOf="@+id/tvJudulUtama"
+        app:layout_constraintStart_toStartOf="@+id/tvJudulUtama"
+        app:layout_constraintTop_toBottomOf="@+id/tvJudulUtama" />
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cvNext"
         android:layout_width="74dp"
         android:layout_height="74dp"
-        android:layout_marginTop="40dp"
 
+        android:layout_marginTop="40dp"
         app:cardBackgroundColor="#015869"
         app:cardCornerRadius="74dp"
         app:layout_constraintEnd_toEndOf="@+id/textView15"
