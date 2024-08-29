@@ -91,11 +91,6 @@ class NetworkClient {
     @Provides
     fun provideApiSignup(retrofit: Retrofit): ApiContractSignup =
         retrofit.create(ApiContractSignup::class.java)
-    @Singleton
-    @Provides
-    fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
-        return PreferenceManager.getDefaultSharedPreferences(context)
-    }
 
     @Singleton
     @Provides

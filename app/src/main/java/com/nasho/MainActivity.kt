@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        binding.textView.setOnClickListener {
+        binding.cvNextOn.setOnClickListener {
             val intent = Intent(this, SignUp::class.java)
             startActivity(intent)
         }

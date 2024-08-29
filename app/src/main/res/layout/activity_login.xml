@@ -15,7 +15,7 @@
         android:layout_marginTop="85dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/img_nasho" />
+        android:src="@drawable/img_nasho" />
 
     <TextView
         android:id="@+id/tvTitle"
@@ -106,7 +106,7 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/tilEmailLogin"
         app:layout_constraintStart_toStartOf="@+id/tilEmailLogin"
-        app:srcCompat="@drawable/ic_email" />
+        android:src="@drawable/ic_email" />
 
     <TextView
         android:id="@+id/textView5"
@@ -158,7 +158,7 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/tilPasswordLogin"
         app:layout_constraintStart_toStartOf="@+id/tilPasswordLogin"
-        app:srcCompat="@drawable/ic_password" />
+        android:src="@drawable/ic_password" />
 
     <TextView
         android:id="@+id/textView6"
