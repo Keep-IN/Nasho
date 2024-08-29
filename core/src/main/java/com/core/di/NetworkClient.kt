@@ -73,7 +73,6 @@ class NetworkClient {
             .client(okHttpClient)
             .build()
 
-
     @Singleton
     @Provides
     fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
@@ -82,8 +81,8 @@ class NetworkClient {
 
     @Singleton
     @Provides
-    fun provideApiMateri(retrofit: Retrofit): MateriRepository =
-        retrofit.create(MateriRepository::class.java)
+    fun provideApiMateri(retrofit: Retrofit): ApiContractMateri =
+        retrofit.create(ApiContractMateri::class.java)
 
     @Singleton
     @Provides
@@ -99,9 +98,9 @@ class NetworkClient {
     @Provides
     fun provideApiProfile(retrofit: Retrofit): ApiContractProfiling =
         retrofit.create(ApiContractProfiling::class.java)
-
     @Singleton
     @Provides
-    fun provideApiMateri(retrofit: Retrofit): ApiContractMateri =
-        retrofit.create(ApiContractMateri::class.java)
+    fun provideApiSignup(retrofit: Retrofit): ApiContractSignup =
+        retrofit.create(ApiContractSignup::class.java)
+
 }

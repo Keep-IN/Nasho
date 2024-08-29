@@ -16,7 +16,6 @@ import com.core.data.network.Result
 import com.nasho.R
 import com.nasho.databinding.ActivityLoginBinding
 import com.nasho.features.home_materi.Home
-import com.nasho.features.quiz.quizDiscussion.PembahasanMateri
 import com.nasho.features.signup.SignUp
 import dagger.hilt.android.AndroidEntryPoint
 

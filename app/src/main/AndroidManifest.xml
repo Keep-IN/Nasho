@@ -44,6 +44,9 @@
             android:name=".features.quiz.quizDiscussion.PembahasanMateri"
             android:exported="false" />
         <activity
+            android:name=".features.home_materi.SharafContainer"
+            android:exported="false" />
+        <activity
             android:name=".features.quiz.quizDiscussion.QuizDiscussion"
             android:exported="false" />
         <activity
@@ -51,6 +54,19 @@
             android:exported="false" />
         <activity
             android:name=".features.quiz.QuizActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".features.home_materi.MateriContainer"
+            android:exported="true" />
+        <activity
+            android:name=".features.home_materi.Home"
+            android:exported="true" >
+        </activity>
+        <activity
+            android:name=".features.signup.SignUp"
+            android:exported="true" />
+        <activity
+            android:name=".features.login.Login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -58,18 +74,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".features.home_materi.MateriContainer"
-            android:exported="false" />
-        <activity
-            android:name=".features.home_materi.Home"
-            android:exported="false" />
-        <activity
-            android:name=".features.signup.SignUp"
-            android:exported="false" />
-        <activity
-            android:name=".features.login.Login"
-            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

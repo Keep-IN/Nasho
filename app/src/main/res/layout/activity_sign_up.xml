@@ -7,12 +7,12 @@
     android:layout_height="match_parent"
     tools:context=".features.signup.SignUp">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="22dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="42dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_back" />
@@ -157,6 +157,7 @@
             android:layout_height="wrap_content"
             android:hint="Ketik disini"
             android:maxLines="1"
+            android:password="true"
             android:textSize="14sp"
             app:hintEnabled="false" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -196,6 +197,7 @@
             android:layout_height="wrap_content"
             android:hint="Ketik disini"
             android:maxLines="1"
+            android:password="true"
             android:textSize="14sp"
             app:hintEnabled="false" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -204,15 +206,15 @@
         android:id="@+id/btnDaftar"
         android:layout_width="0dp"
         android:layout_height="62dp"
-        android:layout_marginTop="125dp"
+        android:layout_marginBottom="32dp"
         android:enabled="false"
         android:fontFamily="@font/manrope_medium"
-        android:text="Masuk"
+        android:text="Simpan"
         android:textSize="14sp"
         android:textStyle="bold"
         app:backgroundTint="@color/bg_button_selector"
         app:cornerRadius="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/tilPasswordKonf"
-        app:layout_constraintStart_toStartOf="@+id/tilPasswordKonf"
-        app:layout_constraintTop_toBottomOf="@+id/tilPasswordKonf" />
+        app:layout_constraintStart_toStartOf="@+id/tilPasswordKonf" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,24 +10,21 @@ import androidx.core.view.WindowInsetsCompat
 import com.nasho.databinding.ActivityMainBinding
 import com.nasho.features.home_materi.Home
 import com.nasho.features.login.Login
-import com.nasho.features.quiz.quizDiscussion.PembahasanMateri
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityMainBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(binding.root)
-
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        binding.cvNext.setOnClickListener {
+        binding.cvNextOn.setOnClickListener {
             startActivity(Intent(this, Login::class.java))
         }
 
