@@ -1,6 +1,7 @@
 package com.nasho.features.Materi
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.os.Handler
@@ -15,9 +16,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
+import androidx.lifecycle.viewModelScope
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MimeTypes
+import androidx.media3.common.PlaybackException
 import androidx.media3.common.Player
+import androidx.media3.common.util.Log
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.datasource.DefaultDataSource
 import androidx.media3.exoplayer.ExoPlayer
@@ -26,7 +30,11 @@ import androidx.media3.ui.PlayerView
 import com.core.data.network.Result
 import com.nasho.R
 import com.nasho.databinding.ActivityMateriVideoBinding
+import com.nasho.features.quiz.QuizActivity
+import com.nasho.features.quiz.QuizViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MateriVideo : AppCompatActivity() {
@@ -39,8 +47,11 @@ class MateriVideo : AppCompatActivity() {
     private lateinit var btnFullScreen: ImageButton
     private val handler = Handler()
     private var isFullScreen = false
+    private var idQuiz: String? = null
+    private var idMateri2: String? = null
 
     private val materiViewModel: MateriViewModel by viewModels()
+    private val viewModel: QuizViewModel by viewModels()
 
     @SuppressLint("ResourceType")
     @OptIn(UnstableApi::class)
@@ -48,6 +59,7 @@ class MateriVideo : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMateriVideoBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        player = ExoPlayer.Builder(this).build()
 
         enableEdgeToEdge()
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
@@ -68,29 +80,32 @@ class MateriVideo : AppCompatActivity() {
         val tvKategoriMateri: TextView = binding.tvKategoriMateri
         val tvIsiSpekMateri: TextView = binding.tvIsiSpekMateri
 
-        val idMateri = intent.getIntExtra("idMateri", 0)
+        val idMateri = intent.getStringExtra("idMateri")
+        Log.d("idMateri", idMateri.toString())
+        if (idMateri != null) {
+            materiViewModel.getSpecificMateri(idMateri).observe(this, Observer { result ->
+                when (result) {
+                    is Result.Loading -> {
 
-        materiViewModel.getSpecificMateri(idMateri).observe(this, Observer { result ->
-            when (result) {
-                is Result.Loading -> {
-
-                }
-                is Result.Success -> {
-                    val materi = result.data.data.firstOrNull()
-                    if (materi != null) {
-                        val videoLink = materi.linkvideo ?: ""
-                        initializePlayer(videoLink)
-
-                        tvJudulUtama.text = materi.judul
-                        tvJudulSpekMateri.text = materi.judul
-                        tvKategoriMateri.text = materi.kategori
-                        tvIsiSpekMateri.text = materi.isi
+                    }
+                    is Result.Success -> {
+                        val materi = result.data.data.firstOrNull()
+                        if (materi != null) {
+                            val videoLink = materi.linkvideo
+                            initializePlayer(videoLink)
+                            tvJudulUtama.text = materi.kategori
+                            tvJudulSpekMateri.text = materi.judul
+                            tvKategoriMateri.text = materi.kategori
+                            tvIsiSpekMateri.text = materi.isi
+                            idMateri2 = materi.id
+                            idQuiz = materi.idQuiz
+                        }
+                    }
+                    is Result.Error -> {
                     }
                 }
-                is Result.Error -> {
-                }
-            }
-        })
+            })
+        }
 
         btnPlayPause.setOnClickListener {
             if (player.isPlaying) {
@@ -143,6 +158,32 @@ class MateriVideo : AppCompatActivity() {
             }
             isFullScreen = !isFullScreen
         }
+
+        binding.btnNextToQuiz.setOnClickListener {
+            viewModel.viewModelScope.launch(Dispatchers.Main){
+                idQuiz?.let { it1 ->
+                    viewModel.postAccessQuiz(it1).observe(this@MateriVideo){
+                        when(it){
+                            is Result.Success -> {
+                                startActivity(Intent(this@MateriVideo, QuizActivity::class.java).apply {
+                                    putExtra("idMengambilQuiz", it.data.data.idMengambilQuiz[0].id)
+                                    putExtra("idMateri", idMateri2)
+                                    putExtra("idQuiz", idQuiz)
+                                })
+                            }
+
+                            is Result.Error -> {
+
+                            }
+
+                            else -> {
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     @OptIn(UnstableApi::class)
@@ -150,17 +191,20 @@ class MateriVideo : AppCompatActivity() {
         player = ExoPlayer.Builder(this).build()
         playerView.player = player
 
-        val mediaItem = MediaItem.Builder()
-            .setUri(videoLink)
-            .setMimeType(MimeTypes.APPLICATION_MP4)
-            .build()
+        val mediaItem = MediaItem.fromUri(videoLink)
 
         val mediaSource = ProgressiveMediaSource.Factory(
             DefaultDataSource.Factory(this)
         ).createMediaSource(mediaItem)
-        player.setMediaItem(mediaItem)
+        player.setMediaSource(mediaSource)
         player.prepare()
         player.playWhenReady = true
+
+        player.addListener(object : Player.Listener {
+            override fun onPlayerError(error: PlaybackException) {
+                Log.e("PlayerError", "Error playing video: ${error.message}")
+            }
+        })
     }
 
     override fun onStop() {

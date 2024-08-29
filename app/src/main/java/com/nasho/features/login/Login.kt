@@ -15,7 +15,7 @@ import androidx.lifecycle.Observer
 import com.core.data.network.Result
 import com.nasho.R
 import com.nasho.databinding.ActivityLoginBinding
-import com.nasho.features.home.Home
+import com.nasho.features.home_materi.Home
 import com.nasho.features.signup.SignUp
 import dagger.hilt.android.AndroidEntryPoint
 

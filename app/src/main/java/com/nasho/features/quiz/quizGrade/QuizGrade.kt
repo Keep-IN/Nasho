@@ -21,12 +21,13 @@ import kotlinx.coroutines.launch
 class QuizGrade : AppCompatActivity() {
     private lateinit var binding: ActivityQuizGradeBinding
     private val viewModel: QuizViewModel by viewModels()
-    private var idQuiz: String = "ba6309d9-aa93-49ca-909b-d30fc5d2a06f"
+    private lateinit var idQuiz: String
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityQuizGradeBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(binding.root)
+        idQuiz = intent.getStringExtra("idQuiz").toString()
         binding.root.applySystemWindowInsets()
         getQuizGrade(idQuiz)
     }

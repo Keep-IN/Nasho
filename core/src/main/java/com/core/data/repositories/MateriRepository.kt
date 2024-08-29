@@ -41,7 +41,7 @@ class MateriRepository @Inject constructor(
         }
     }
 
-    fun getSpesificMateri(id: Int): LiveData<Result<SpesificMateriResponse>> = liveData {
+    fun getSpesificMateri(id: String): LiveData<Result<SpesificMateriResponse>> = liveData {
         emit(Result.Loading)
         val response =  api.getSpecificMateri(id)
         val responseBody = response.body()

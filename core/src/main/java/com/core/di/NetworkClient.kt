@@ -79,10 +79,10 @@ class NetworkClient {
         return PreferenceManager.getDefaultSharedPreferences(context)
     }
 
-//    @Singleton
-//    @Provides
-//    fun provideApiMateri(retrofit: Retrofit): MateriRepository =
-//        retrofit.create(MateriRepository::class.java)
+    @Singleton
+    @Provides
+    fun provideApiMateri(retrofit: Retrofit): ApiContractMateri =
+        retrofit.create(ApiContractMateri::class.java)
 
     @Singleton
     @Provides
