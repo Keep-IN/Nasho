@@ -81,7 +81,7 @@ class MateriVideo : AppCompatActivity() {
                         val videoLink = materi.linkvideo ?: ""
                         initializePlayer(videoLink)
 
-                        tvJudulUtama.text = materi.judul
+                        tvJudulUtama.text = materi.kategori
                         tvJudulSpekMateri.text = materi.judul
                         tvKategoriMateri.text = materi.kategori
                         tvIsiSpekMateri.text = materi.isi
