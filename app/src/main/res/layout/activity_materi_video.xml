@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".features.Materi.MateriVideo">
@@ -19,15 +20,51 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <Button
-                android:id="@+id/btnNextToQuiz"
+            <!-- Removed cvHeader and nested ConstraintLayout, moved views here -->
+
+            <ImageView
+                android:id="@+id/ivBackVideo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:text="to Quiz"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="18dp"
+                android:src="@drawable/ic_back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvJudulSpekMateri"
+                android:layout_width="265dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:fontFamily="@font/manrope_semibold"
+                android:text="Nama judul materi"
+                android:textColor="#015869"
+                android:textSize="20dp"
+                app:layout_constraintStart_toEndOf="@+id/ivBackVideo"
+                app:layout_constraintTop_toTopOf="@+id/ivBackVideo" />
+
+            <TextView
+                android:id="@+id/tvKategoriMateri"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/manrope"
+                android:text="TextView"
+                android:textColor="#015869"
+                android:textSize="10dp"
+                app:layout_constraintStart_toStartOf="@+id/tvJudulSpekMateri"
+                app:layout_constraintTop_toBottomOf="@+id/tvJudulSpekMateri" />
+
+            <WebView
+                android:id="@+id/webView"
+                android:layout_width="0dp"
+                android:layout_height="350dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvKategoriMateri" />
 
             <TextView
                 android:id="@+id/tvIsiSpekMateri"
@@ -41,90 +78,21 @@
                 android:textColorLink="#4D5761"
                 android:textSize="14dp"
                 app:layout_constraintBottom_toTopOf="@+id/btnNextToQuiz"
-                app:layout_constraintEnd_toEndOf="@+id/playerView"
-                app:layout_constraintStart_toStartOf="@+id/playerView"
-                app:layout_constraintTop_toBottomOf="@+id/playerView" />
+                app:layout_constraintEnd_toEndOf="@+id/webView"
+                app:layout_constraintStart_toStartOf="@+id/webView"
+                app:layout_constraintTop_toBottomOf="@+id/webView" />
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/materialCardView"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnNextToQuiz"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="0dp"
-                app:cardElevation="0dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/ic_header"
-                    android:scaleType="fitXY">
-
-                    <ImageView
-                        android:id="@+id/ivBackVideo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="18dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:src="@drawable/ic_back_arrow" />
-
-                    <TextView
-                        android:id="@+id/tvJudulUtama"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/manrope_semibold"
-                        android:text="Nahwu"
-                        android:textColor="#FCFCFD"
-                        android:textSize="20dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/ivBackVideo" />
-
-                    <TextView
-                        android:id="@+id/tvJudulSpekMateri"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:fontFamily="@font/manrope_semibold"
-                        android:text="Nama judul materi"
-                        android:textColor="#FCFCFD"
-                        android:textSize="20dp"
-                        app:layout_constraintStart_toStartOf="@+id/ivBackVideo"
-                        app:layout_constraintTop_toBottomOf="@+id/tvJudulUtama" />
-
-                    <TextView
-                        android:id="@+id/tvKategoriMateri"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="36dp"
-                        android:fontFamily="@font/manrope"
-                        android:text="TextView"
-                        android:textColor="#FCFCFD"
-                        android:textSize="10dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/tvJudulSpekMateri"
-                        app:layout_constraintTop_toBottomOf="@+id/tvJudulSpekMateri" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <androidx.media3.ui.PlayerView
-                android:id="@+id/playerView"
-                android:layout_width="344dp"
-                android:layout_height="188dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="24dp"
-                app:controller_layout_id="@layout/custom_controller"
-                app:layout_constraintEnd_toEndOf="@+id/materialCardView"
-                app:layout_constraintStart_toStartOf="@+id/materialCardView"
-                app:layout_constraintTop_toBottomOf="@+id/materialCardView"
-                app:resize_mode="fill"
-                app:show_buffering="when_playing"
-                app:show_shuffle_button="true" />
+                android:layout_height="58dp"
+                android:layout_marginBottom="20dp"
+                android:text="to Quiz"
+                app:backgroundTint="@color/Success50"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/webView"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/webView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

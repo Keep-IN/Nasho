@@ -1,5 +1,6 @@
 package com.nasho.features.quiz.quizGrade
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
@@ -10,9 +11,11 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.viewModelScope
 import com.core.data.network.Result
+import com.core.data.reqres.materi.Materi
 import com.nasho.R
 import com.nasho.databinding.ActivityQuizGradeBinding
 import com.nasho.features.quiz.QuizViewModel
+import com.nasho.features.quiz.quizDiscussion.PembahasanMateri
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -30,6 +33,16 @@ class QuizGrade : AppCompatActivity() {
         idQuiz = intent.getStringExtra("idQuiz").toString()
         binding.root.applySystemWindowInsets()
         getQuizGrade(idQuiz)
+
+        binding.btnPembahasan.setOnClickListener {
+            startActivity(Intent(this, PembahasanMateri::class.java).apply {
+                putExtra("idMengambilQuiz", idQuiz)
+            })
+        }
+        binding.btnkm.setOnClickListener {
+            val intent = Intent(this@QuizGrade, Materi::class.java)
+            startActivity(intent)
+        }
     }
     private fun View.applySystemWindowInsets() {
         ViewCompat.setOnApplyWindowInsetsListener(this) { view, insets ->

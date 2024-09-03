@@ -16,6 +16,7 @@ import com.core.data.network.Result
 import com.core.data.reqres.profiling.GetProfileResponse
 import com.nasho.databinding.ActivityLoginBinding
 import com.nasho.databinding.ActivityPengaturanBinding
+import com.nasho.features.home_materi.Home
 import com.nasho.features.signup.SignUp
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -49,6 +50,9 @@ class Pengaturan : AppCompatActivity() {
             cvKeluarAkun.setOnClickListener{
                 val dialog = AlertLogout()
                 dialog.show(supportFragmentManager, "AlertLogout")
+            }
+            ivBackSet.setOnClickListener {
+                startActivity(Intent(this@Pengaturan, Home::class.java))
             }
         }
         profileViewModel.getProfile().observe(this@Pengaturan, Observer { result ->

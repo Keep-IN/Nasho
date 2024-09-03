@@ -11,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.viewModelScope
 import com.core.data.network.Result
 import com.nasho.databinding.ActivityHomeBinding
+import com.nasho.features.settings.Pengaturan
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -53,6 +54,9 @@ class Home : AppCompatActivity() {
             }
             cvSharaf.setOnClickListener{
                 startActivity(Intent(this@Home, SharafContainer::class.java))
+            }
+            cvSettings.setOnClickListener{
+                startActivity(Intent(this@Home, Pengaturan::class.java))
             }
         }
     }
