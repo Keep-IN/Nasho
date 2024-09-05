@@ -56,6 +56,19 @@ class UjianAdapter : RecyclerView.Adapter<UjianAdapter.ViewHolder>(){
             }
 
             binding.apply {
+                if (item.locked) {
+                    // Nonaktifkan OnClickListener jika item terkunci
+                    root.isClickable = false
+                    root.isEnabled = false
+                } else {
+                    // Aktifkan OnClickListener jika item tidak terkunci
+                    root.isClickable = true
+                    root.isEnabled = true
+                    root.setOnClickListener {
+                        listener?.invoke(item)
+                    }
+                }
+
                 var progress: Double = 0.0
 
                 if (item.phase_ujian == 1){
@@ -84,11 +97,7 @@ class UjianAdapter : RecyclerView.Adapter<UjianAdapter.ViewHolder>(){
 
                 ProgressBar.setProgressPercentage(progress)
 
-                if(item.locked){
-                    ivLock.visibility = View.VISIBLE
-                } else {
-                    ivLock.visibility = View.GONE
-                }
+                ivLock.visibility = if (item.locked) View.VISIBLE else View.GONE
             }
         }
     }
