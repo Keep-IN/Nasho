@@ -6,6 +6,11 @@ import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
+import android.webkit.WebChromeClient
+import android.webkit.WebResourceRequest
+import android.webkit.WebView
+import android.webkit.WebViewClient
+import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.SeekBar
 import android.widget.TextView
@@ -17,16 +22,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.viewModelScope
-import androidx.media3.common.MediaItem
-import androidx.media3.common.MimeTypes
-import androidx.media3.common.PlaybackException
-import androidx.media3.common.Player
 import androidx.media3.common.util.Log
-import androidx.media3.common.util.UnstableApi
-import androidx.media3.datasource.DefaultDataSource
-import androidx.media3.exoplayer.ExoPlayer
-import androidx.media3.exoplayer.source.ProgressiveMediaSource
-import androidx.media3.ui.PlayerView
 import com.core.data.network.Result
 import com.nasho.R
 import com.nasho.databinding.ActivityMateriVideoBinding
@@ -39,27 +35,24 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class MateriVideo : AppCompatActivity() {
     private lateinit var binding: ActivityMateriVideoBinding
-    private lateinit var playerView: PlayerView
-    private lateinit var player: ExoPlayer
-    private lateinit var btnPlayPause: ImageButton
-    private lateinit var seekBar: SeekBar
-    private lateinit var btnMute: ImageButton
-    private lateinit var btnFullScreen: ImageButton
+    private lateinit var webView: WebView
     private val handler = Handler()
-    private var isFullScreen = false
     private var idQuiz: String? = null
     private var idMateri2: String? = null
 
     private val materiViewModel: MateriViewModel by viewModels()
     private val viewModel: QuizViewModel by viewModels()
 
-    @SuppressLint("ResourceType")
-    @OptIn(UnstableApi::class)
+    private var fullscreenContainer: FrameLayout? = null
+    private var originalSystemUiVisibility: Int = 0
+    private var originalOrientation: Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMateriVideoBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        player = ExoPlayer.Builder(this).build()
+
+        webView = binding.webView
 
         enableEdgeToEdge()
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
@@ -68,102 +61,45 @@ class MateriVideo : AppCompatActivity() {
             insets
         }
 
-        playerView = binding.playerView
+        binding.ivBackVideo.setOnClickListener {
+            finish()
+        }
 
-        btnPlayPause = findViewById(R.id.btnPlayPause)
-        seekBar = findViewById(R.id.seekBar)
-        btnMute = findViewById(R.id.btnMute)
-        btnFullScreen = findViewById(R.id.btnFullScreen)
-
-        val tvJudulUtama: TextView = binding.tvJudulUtama
         val tvJudulSpekMateri: TextView = binding.tvJudulSpekMateri
         val tvKategoriMateri: TextView = binding.tvKategoriMateri
         val tvIsiSpekMateri: TextView = binding.tvIsiSpekMateri
 
         val idMateri = intent.getStringExtra("idMateri")
-        Log.d("idMateri", idMateri.toString())
         if (idMateri != null) {
             materiViewModel.getSpecificMateri(idMateri).observe(this, Observer { result ->
                 when (result) {
                     is Result.Loading -> {
-
+                        // Handle loading state
                     }
                     is Result.Success -> {
                         val materi = result.data.data.firstOrNull()
                         if (materi != null) {
                             val videoLink = materi.linkvideo
-                            initializePlayer(videoLink)
-                            tvJudulUtama.text = materi.kategori
+                            initializeWebView(videoLink)
                             tvJudulSpekMateri.text = materi.judul
-                            tvKategoriMateri.text = materi.kategori
+                            tvKategoriMateri.text = materi.subjudul
                             tvIsiSpekMateri.text = materi.isi
                             idMateri2 = materi.id
                             idQuiz = materi.idQuiz
                         }
                     }
                     is Result.Error -> {
+                        // Handle error state
                     }
                 }
             })
         }
 
-        btnPlayPause.setOnClickListener {
-            if (player.isPlaying) {
-                player.pause()
-                btnPlayPause.setImageResource(R.drawable.ic_play)
-            } else {
-                player.play()
-                btnPlayPause.setImageResource(R.drawable.ic_pause)
-            }
-        }
-
-        btnMute.setOnClickListener {
-            player.volume = if (player.volume == 0f) 1f else 0f
-            val muteDrawable = if (player.volume == 0f) R.drawable.ic_mute else R.drawable.ic_unmute
-            btnMute.setImageResource(muteDrawable)
-        }
-
-        seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                if (fromUser) {
-                    player.seekTo(progress.toLong())
-                }
-            }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
-        })
-
-        player.addListener(object : Player.Listener {
-            override fun onPlaybackStateChanged(state: Int) {
-                super.onPlaybackStateChanged(state)
-                if (state == Player.STATE_READY) {
-                    updateSeekBarProgress()
-                }
-            }
-        })
-
-        btnFullScreen.setOnClickListener {
-            if (isFullScreen) {
-                window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
-                requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-                btnFullScreen.setImageResource(R.drawable.ic_fullscreen)
-            } else {
-                window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_FULLSCREEN
-                        or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                        or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
-                requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-                btnFullScreen.setImageResource(R.drawable.ic_exit_fullscreen)
-            }
-            isFullScreen = !isFullScreen
-        }
-
         binding.btnNextToQuiz.setOnClickListener {
-            viewModel.viewModelScope.launch(Dispatchers.Main){
+            viewModel.viewModelScope.launch(Dispatchers.Main) {
                 idQuiz?.let { it1 ->
-                    viewModel.postAccessQuiz(it1).observe(this@MateriVideo){
-                        when(it){
+                    viewModel.postAccessQuiz(it1).observe(this@MateriVideo) {
+                        when (it) {
                             is Result.Success -> {
                                 startActivity(Intent(this@MateriVideo, QuizActivity::class.java).apply {
                                     putExtra("idMengambilQuiz", it.data.data.idMengambilQuiz[0].id)
@@ -171,13 +107,11 @@ class MateriVideo : AppCompatActivity() {
                                     putExtra("idQuiz", idQuiz)
                                 })
                             }
-
                             is Result.Error -> {
-
+                                // Handle error
                             }
-
                             else -> {
-
+                                // Handle other states
                             }
                         }
                     }
@@ -186,36 +120,57 @@ class MateriVideo : AppCompatActivity() {
         }
     }
 
-    @OptIn(UnstableApi::class)
-    private fun initializePlayer(videoLink: String) {
-        player = ExoPlayer.Builder(this).build()
-        playerView.player = player
+    @SuppressLint("SetJavaScriptEnabled")
+    private fun initializeWebView(videoLink: String) {
+        webView.settings.apply {
+            javaScriptEnabled = true
+            mediaPlaybackRequiresUserGesture = false
+        }
+        webView.webChromeClient = object : WebChromeClient() {
+            override fun onShowCustomView(view: View, callback: CustomViewCallback) {
+                if (fullscreenContainer == null) {
+                    fullscreenContainer = FrameLayout(this@MateriVideo)
+                    val decorView = window.decorView as FrameLayout
+                    decorView.addView(fullscreenContainer, FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT)
+                }
 
-        val mediaItem = MediaItem.fromUri(videoLink)
+                fullscreenContainer?.apply {
+                    visibility = View.VISIBLE
+                    removeAllViews()
+                    addView(view)
+                }
 
-        val mediaSource = ProgressiveMediaSource.Factory(
-            DefaultDataSource.Factory(this)
-        ).createMediaSource(mediaItem)
-        player.setMediaSource(mediaSource)
-        player.prepare()
-        player.playWhenReady = true
+                originalSystemUiVisibility = window.decorView.systemUiVisibility
+                originalOrientation = requestedOrientation
 
-        player.addListener(object : Player.Listener {
-            override fun onPlayerError(error: PlaybackException) {
-                Log.e("PlayerError", "Error playing video: ${error.message}")
+                window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_FULLSCREEN
+                        or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                        or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
+                requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
             }
-        })
+
+            override fun onHideCustomView() {
+                fullscreenContainer?.apply {
+                    visibility = View.GONE
+                    removeAllViews()
+                }
+
+                window.decorView.systemUiVisibility = originalSystemUiVisibility
+                requestedOrientation = originalOrientation
+            }
+        }
+        webView.webViewClient = object : WebViewClient() {
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+                Log.d("WebView", "Page loaded: $url")
+            }
+        }
+        webView.loadUrl(videoLink)
     }
 
     override fun onStop() {
         super.onStop()
-        player.stop()
+        webView.loadUrl("about:blank") // Clear WebView content
         handler.removeCallbacksAndMessages(null)
-    }
-
-    private fun updateSeekBarProgress() {
-        seekBar.max = player.duration.toInt()
-        seekBar.progress = player.currentPosition.toInt()
-        handler.postDelayed({ updateSeekBarProgress() }, 100)
     }
 }

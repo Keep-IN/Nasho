@@ -121,11 +121,10 @@ class SignUp : AppCompatActivity() {
         val konfirm = binding.tilPasswordKonf.editText?.text.toString()
 
         val isEmailValid = authViewModel.validateEmail(email)
-        val isNamaValid = nama.isNotEmpty()
         val isPasswordValid = authViewModel.validatePassword(password)
         val isKonfirmValid = konfirm == password
         val isName = authViewModel.validateNama(nama)
 
-        binding.btnDaftar.isEnabled = isEmailValid && isNamaValid && isPasswordValid && isKonfirmValid && isName
+        binding.btnDaftar.isEnabled = isEmailValid && isPasswordValid && isKonfirmValid && isName
     }
 }

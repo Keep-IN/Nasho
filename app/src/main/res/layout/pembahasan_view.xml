@@ -26,14 +26,14 @@
 
             <TextView
                 android:id="@+id/tvNomorPertanyaan"
-                android:layout_width="wrap_content"
+                android:layout_width="265dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="16dp"
-                android:fontFamily="@font/manrope"
+                android:fontFamily="@font/manrope_bold"
                 android:text="No. 1 "
                 android:textColor="#CB7624"
-                android:textSize="12dp"
+                android:textSize="14dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

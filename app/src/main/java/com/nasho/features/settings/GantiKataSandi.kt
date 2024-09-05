@@ -75,6 +75,7 @@ class GantiKataSandi : AppCompatActivity() {
                         }
                         is Result.Success -> {
                             Toast.makeText(this, "Password updated successfully!", Toast.LENGTH_SHORT).show()
+                            finish()
 
                         }
                         is Result.Error -> {

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent"
     tools:context=".features.settings.UbahProfil">
 
@@ -44,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            tools:srcCompat="@tools:sample/avatars" />
+            android:src="@drawable/ic_p_default" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
