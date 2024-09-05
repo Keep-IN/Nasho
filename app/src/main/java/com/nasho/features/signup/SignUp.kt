@@ -124,7 +124,8 @@ class SignUp : AppCompatActivity() {
         val isNamaValid = nama.isNotEmpty()
         val isPasswordValid = authViewModel.validatePassword(password)
         val isKonfirmValid = konfirm == password
+        val isName = authViewModel.validateNama(nama)
 
-        binding.btnDaftar.isEnabled = isEmailValid && isNamaValid && isPasswordValid && isKonfirmValid
+        binding.btnDaftar.isEnabled = isEmailValid && isNamaValid && isPasswordValid && isKonfirmValid && isName
     }
 }

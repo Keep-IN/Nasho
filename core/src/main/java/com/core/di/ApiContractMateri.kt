@@ -19,7 +19,7 @@ interface ApiContractMateri {
 
     @GET("materi/{id}")
     suspend fun  getSpecificMateri(
-        @Path("id") id: Int
+        @Path("id") id: String
     ): Response<SpesificMateriResponse>
 
     @GET("kategoriMateri")

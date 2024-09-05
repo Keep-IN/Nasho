@@ -13,7 +13,7 @@ class HomeViewModel @Inject constructor(
         kategori: String
     ) = repository.getMateri(kategori)
 
-    fun getSpesificMateri(id: Int) = repository.getSpesificMateri(id)
+    fun getSpesificMateri(id: String) = repository.getSpesificMateri(id)
 
     fun getMateriKategori() = repository.getMateriKategori()
 

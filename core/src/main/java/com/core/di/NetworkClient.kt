@@ -25,8 +25,8 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class NetworkClient {
     companion object{
-        private const val  BASE_URL ="https://enormous-mint-tomcat.ngrok-free.app/"
-        private const val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk2NTNjY2FhLTViYjktNGQ4Yy1iYTUyLTYyNDdhZWYxYjU4MyIsInVzZXJuYW1lIjoiaGFyZHlmZWJyeWFuIiwiZW1haWwiOiJoYXJkeUBnbWFpbC5jb20iLCJyb2xlIjoiYWM4N2ZkMjEtMmY5NC00YzFkLWE1ODItZmZlNjkxZmVmNDUwIiwiaWF0IjoxNzIyMTcwNzYxfQ.268IwJWJI4VByVbXCSDhuD1IM6pLQoxLK2LDezM_c54"
+        private const val  BASE_URL ="https://enormous-mint-tomcat.ngrok-free.app"
+        private const val token = ".."
     }
     @Singleton
     @Provides
@@ -49,7 +49,7 @@ class NetworkClient {
             .addInterceptor { chain ->
                 val requestBuilder = chain.request()
                     .newBuilder()
-                    .header("Authorization", "Bearer $token")
+                    .header("Authorization", "Bearer ${getAuthToken(sharedPreferences)}")
                     .build()
                 val response = chain.proceed(requestBuilder)
                 response
@@ -91,6 +91,16 @@ class NetworkClient {
 
     @Singleton
     @Provides
+    fun provideApiLogin(retrofit: Retrofit): ApiContractLogin =
+        retrofit.create(ApiContractLogin::class.java)
+
+    @Singleton
+    @Provides
+    fun provideApiProfile(retrofit: Retrofit): ApiContractProfiling =
+        retrofit.create(ApiContractProfiling::class.java)
+    @Singleton
+    @Provides
     fun provideApiSignup(retrofit: Retrofit): ApiContractSignup =
         retrofit.create(ApiContractSignup::class.java)
+
 }

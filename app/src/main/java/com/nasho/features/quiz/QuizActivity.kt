@@ -19,6 +19,7 @@ import com.core.data.network.Result
 import com.core.data.reqres.quiz.Pilihan
 import com.core.data.reqres.quiz.QuizResponse
 import com.core.data.reqres.quiz.answerValidationReqRes.QuizAnswerRequest
+import com.core.data.reqres.quiz.userAccessQuiz.IdMengambilQuiz
 import com.nasho.data.adapter.AnswerListAdapter
 import com.nasho.databinding.ActivityQuizBinding
 import com.nasho.features.quiz.alert.AlertDialogAnswerCorrect
@@ -40,20 +41,24 @@ class QuizActivity : AppCompatActivity() {
     private var isItemSelected = false
     private var idPilihan: String = ""
     private var idSoal: String = ""
-    private var idQuiz: String = "a2011811-212a-4d15-a415-3fb7e437b432"
-    private var idMateri: String = "d2bf909e-9f05-45bf-a55b-f2b8b6d47e3f"
+    private lateinit var idMengambilQuiz: String
+    private lateinit var idMateri: String
+    private lateinit var idQuiz: String
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityQuizBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(binding.root)
+        idMengambilQuiz = intent.getStringExtra("idMengambilQuiz").toString()
+        idMateri = intent.getStringExtra("idMateri").toString()
+        idQuiz = intent.getStringExtra("idQuiz").toString()
         binding.root.applySystemWindowInsets()
         binding.rvListAnswers.adapter = adapterListOpsi
         binding.rvListAnswers.layoutManager = LinearLayoutManager(this)
         adapterListOpsi.setOnclickItem(rvClickListener)
         getQuiz(idMateri)
         binding.btnCheckAnswer.setOnClickListener {
-            postJawaban(idQuiz, QuizAnswerRequest(idPilihan, idSoal))
+            postJawaban(idMengambilQuiz, QuizAnswerRequest(idPilihan, idSoal))
             adapterListOpsi.resetSelectedPosition()
             isItemSelected = false
             updateButtonState()
@@ -62,7 +67,10 @@ class QuizActivity : AppCompatActivity() {
                     index++
                     showQuiz(index)
                 } else {
-                    startActivity(Intent(this, QuizGrade::class.java))
+                    startActivity(Intent(this, QuizGrade::class.java).apply {
+                        putExtra("idQuiz", idMengambilQuiz)
+                    })
+                    finish()
                 }
             },2000)
         }
@@ -72,23 +80,6 @@ class QuizActivity : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             view.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
-        }
-    }
-    private fun userAccessQuiz(id: String){
-        viewModel.viewModelScope.launch(Dispatchers.Main){
-            viewModel.postAccessQuiz(id).observe(this@QuizActivity){
-                when(it){
-                    is Result.Success -> {
-
-                    }
-                    is Result.Error -> {
-
-                    }
-                    else -> {
-
-                    }
-                }
-            }
         }
     }
 
@@ -126,6 +117,7 @@ class QuizActivity : AppCompatActivity() {
 
                     }
                     is Result.Error -> {
+
 
                     }
                     else -> {

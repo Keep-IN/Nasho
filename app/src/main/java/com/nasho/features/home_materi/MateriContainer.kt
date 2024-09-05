@@ -21,6 +21,7 @@ import com.core.data.reqres.materi.Materi
 import com.core.data.reqres.materi.Ujian
 import com.nasho.R
 import com.nasho.databinding.ActivityMateriContainerBinding
+import com.nasho.features.Materi.MateriVideo
 import com.nasho.features.home_materi.adapter.MateriAdapter
 import com.nasho.features.home_materi.adapter.UjianAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -147,9 +148,9 @@ class MateriContainer : AppCompatActivity() {
     }
 
     private val rvClickListenerMateri: (Materi) -> Unit = { item ->
-        //startActivity(Intent(this, Materi::class.java).apply {
-        //    putExtra("id", item)
-        //})
+        startActivity(Intent(this, MateriVideo::class.java).apply {
+            putExtra("idMateri", item.id)
+        })
     }
 
     private val rvClickListenerUjian: (Ujian) -> Unit = { item ->

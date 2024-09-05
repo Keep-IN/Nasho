@@ -1,5 +1,6 @@
 package com.nasho.features.quiz.quizGrade
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.activity.enableEdgeToEdge
@@ -20,13 +21,15 @@ import kotlinx.coroutines.launch
 class QuizGrade : AppCompatActivity() {
     private lateinit var binding: ActivityQuizGradeBinding
     private val viewModel: QuizViewModel by viewModels()
-    private var idQuiz: String = "a2011811-212a-4d15-a415-3fb7e437b432"
+    private lateinit var idQuiz: String
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityQuizGradeBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(binding.root)
+        idQuiz = intent.getStringExtra("idQuiz").toString()
         binding.root.applySystemWindowInsets()
+        getQuizGrade(idQuiz)
     }
     private fun View.applySystemWindowInsets() {
         ViewCompat.setOnApplyWindowInsetsListener(this) { view, insets ->
@@ -41,7 +44,29 @@ class QuizGrade : AppCompatActivity() {
             viewModel.getQuizGrade(id).observe(this@QuizGrade){
                 when(it){
                     is Result.Success -> {
-
+                        binding.apply {
+                            tvJudulQuiz.text = it.data.data.quiz[0].nama
+                            tvQuizGrade.text = it.data.data.quiz[0].nilai.toString()
+                            tvJumlahBenar.text = "${it.data.data.quiz[0].jumlahBenar.toString()} Soal"
+                            tvJumlahSalah.text = "${it.data.data.quiz[0].jumlahSalah.toString()} Soal"
+                            if (it.data.data.quiz[0].lulus){
+                                binding.apply {
+                                    cvQuizGrade.setCardBackgroundColor(Color.parseColor("#90BEC7"))
+                                    tvKalimatPenyemangat.text = "Kamu Hebat!!!"
+                                    tvKalimatPenyemangat2.text = "Tetap Pertahankan\nSemangatmu Ya"
+                                    tvQuizGrade.setTextColor(Color.parseColor("#015869"))
+                                    ivQuizSuccess.setImageResource(R.drawable.ic_quiz_success)
+                                }
+                            } else {
+                                binding.apply {
+                                    cvQuizGrade.setCardBackgroundColor(Color.parseColor("#CE9589"))
+                                    tvKalimatPenyemangat.text = "Tetap Semangat!!!"
+                                    tvKalimatPenyemangat2.text = "Terus Semangat\nKamu Pasti Bisa"
+                                    tvQuizGrade.setTextColor(Color.parseColor("#B40101"))
+                                    ivQuizSuccess.setImageResource(R.drawable.ic_quiz_fail)
+                                }
+                            }
+                        }
                     }
                     is Result.Error -> {
 
