@@ -62,12 +62,10 @@ class MateriAdapter : RecyclerView.Adapter<MateriAdapter.ViewHolder>() {
                 // Nonaktifkan OnClickListener jika item terkunci
                 binding.root.isClickable = false
                 binding.root.isEnabled = false
-                binding.root.alpha = 0.5f // Mengubah tampilan item agar tampak tidak aktif
             } else {
                 // Aktifkan OnClickListener jika item tidak terkunci
                 binding.root.isClickable = true
                 binding.root.isEnabled = true
-                binding.root.alpha = 1.0f
                 binding.root.setOnClickListener {
                     listener?.invoke(item)
                 }
