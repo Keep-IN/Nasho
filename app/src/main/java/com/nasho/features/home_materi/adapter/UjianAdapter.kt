@@ -85,9 +85,11 @@ class UjianAdapter : RecyclerView.Adapter<UjianAdapter.ViewHolder>(){
                     if (item.riwayat[0].lulus) {
                         binding.ivUjian.setImageResource(R.drawable.ic_done)
                         binding.ivSelesai.setImageResource(R.drawable.ic_done)
+                        binding.ProgressBar.setProgressPercentage(100.0)
                     } else {
                         binding.ivUjian.setImageResource(R.drawable.ic_undone)
                         binding.ivSelesai.setImageResource(R.drawable.ic_done)
+                        binding.ProgressBar.setProgressPercentage(0.0)
                     }
                 } else {
                     // Handle the case where riwayat is null or empty

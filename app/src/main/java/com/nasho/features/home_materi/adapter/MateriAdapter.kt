@@ -91,10 +91,12 @@ class MateriAdapter : RecyclerView.Adapter<MateriAdapter.ViewHolder>() {
             }
 
             binding.ivBelajar.setImageResource(if (item.sudahMengambil) R.drawable.ic_done else R.drawable.ic_undone)
+            binding.ProgressBar1.setProgressPercentage(if (item.sudahMengambil) 100.0 else 0.0)
 
             val isQuizPassed = item.quiz?.firstOrNull()?.lulus ?: false
             binding.ivQuiz.setImageResource(if (isQuizPassed) R.drawable.ic_done else R.drawable.ic_undone)
             binding.ivLulus.setImageResource(if (isQuizPassed) R.drawable.ic_done else R.drawable.ic_undone)
+            binding.ProgressBar2.setProgressPercentage(if(isQuizPassed) 100.0 else 0.0)
 
             binding.ivLock.visibility = if (item.locked) View.VISIBLE else View.GONE
 //            if(item.sudahMengambil){

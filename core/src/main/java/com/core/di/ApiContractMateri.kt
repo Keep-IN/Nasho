@@ -27,7 +27,7 @@ interface ApiContractMateri {
 
     @POST("selectMateri/{id}")
     suspend fun postAccess(
-        @Path("id") id: Int
+        @Path("id") id: String
     ): Response<UserAccessResponse>
 
     @GET("statistik/home")

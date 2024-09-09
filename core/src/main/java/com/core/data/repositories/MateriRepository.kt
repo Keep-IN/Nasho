@@ -83,7 +83,7 @@ class MateriRepository @Inject constructor(
         }
     }
 
-    fun postAccesMateri(id: Int): LiveData<Result<UserAccessResponse>> = liveData {
+    fun postAccesMateri(id: String): LiveData<Result<UserAccessResponse>> = liveData {
         emit(Result.Loading)
         val response =  api.postAccess(id)
         val responseBody = response.body()

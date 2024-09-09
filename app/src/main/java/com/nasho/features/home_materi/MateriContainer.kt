@@ -148,6 +148,21 @@ class MateriContainer : AppCompatActivity() {
     }
 
     private val rvClickListenerMateri: (Materi) -> Unit = { item ->
+        if(!item.sudahMengambil){
+            viewModel.postAccessMateri(item.id).observe(this@MateriContainer) {
+                when (it) {
+                    is Result.Success -> {
+                        Log.d("sukses postAccess", "yeye")
+                    }
+                    is Result.Error -> {
+                        Log.d("error postAccess", it.errorMessage)
+                    }
+                    else -> {
+                        Log.d("Unexpected Error", "error")
+                    }
+                }
+            }
+        }
         startActivity(Intent(this, MateriVideo::class.java).apply {
             putExtra("idMateri", item.id)
         })
