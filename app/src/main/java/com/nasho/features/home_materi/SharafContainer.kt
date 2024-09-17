@@ -19,6 +19,7 @@ import com.nasho.R
 import com.nasho.databinding.ActivitySharafContainerBinding
 import com.nasho.features.home_materi.adapter.MateriAdapter
 import com.nasho.features.home_materi.adapter.UjianAdapter
+import com.nasho.features.quiz.QuizActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -142,14 +143,14 @@ class SharafContainer : AppCompatActivity() {
     }
 
     private val rvClickListenerMateri: (Materi) -> Unit = { item ->
-        //startActivity(Intent(this, Materi::class.java).apply {
-        //    putExtra("id", item)
-        //})
+        startActivity(Intent(this, Materi::class.java).apply {
+            putExtra("id", item.id)
+        })
     }
 
     private val rvClickListenerUjian: (Ujian) -> Unit = { item ->
-        //startActivity(Intent(this, Ujian::class.java).apply {
-        //    putExtra("id", item)
-        //})
+        startActivity(Intent(this, QuizActivity::class.java).apply {
+            putExtra("id", item.id)
+        })
     }
 }

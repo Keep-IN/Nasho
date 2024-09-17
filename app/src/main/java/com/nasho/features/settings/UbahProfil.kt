@@ -104,7 +104,7 @@ class UbahProfil : AppCompatActivity() {
 
     private fun validateUsername() {
         val username = binding.etNama.text.toString().trim()
-        val isValid = username.length in 6..10
+        val isValid = username.length in 6..30
         binding.btnSimpanEdit.isEnabled = isValid
     }
 }
