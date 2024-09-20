@@ -17,6 +17,7 @@ import com.core.data.reqres.materi.Materi
 import com.core.data.reqres.materi.Ujian
 import com.nasho.R
 import com.nasho.databinding.ActivitySharafContainerBinding
+import com.nasho.features.Materi.MateriVideo
 import com.nasho.features.home_materi.adapter.MateriAdapter
 import com.nasho.features.home_materi.adapter.UjianAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -91,24 +92,6 @@ class SharafContainer : AppCompatActivity() {
         materiAdapterPhase2.setOnClickItem { selectedMateri ->
             rvClickListenerMateri(selectedMateri)
         }
-
-        // Setup for Ujian Phase 1 RecyclerView
-        val layoutManagerUjian1 = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        binding.rvUjian.layoutManager = layoutManagerUjian1
-        ujianAdapterPhase1 = UjianAdapter()
-        binding.rvUjian.adapter = ujianAdapterPhase1
-        ujianAdapterPhase1.setOnClickItem { selectedUjian ->
-            rvClickListenerUjian(selectedUjian)
-        }
-
-        // Setup for Ujian Phase 2 RecyclerView
-        val layoutManagerUjian2 = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        binding.rvUjian2.layoutManager = layoutManagerUjian2
-        ujianAdapterPhase2 = UjianAdapter()
-        binding.rvUjian2.adapter = ujianAdapterPhase2
-        ujianAdapterPhase2.setOnClickItem { selectedUjian ->
-            rvClickListenerUjian(selectedUjian)
-        }
     }
 
     private fun observeViewModel() {
@@ -142,14 +125,23 @@ class SharafContainer : AppCompatActivity() {
     }
 
     private val rvClickListenerMateri: (Materi) -> Unit = { item ->
-        //startActivity(Intent(this, Materi::class.java).apply {
-        //    putExtra("id", item)
-        //})
-    }
-
-    private val rvClickListenerUjian: (Ujian) -> Unit = { item ->
-        //startActivity(Intent(this, Ujian::class.java).apply {
-        //    putExtra("id", item)
-        //})
+        if(!item.sudahMengambil){
+            viewModel.postAccessMateri(item.id).observe(this@SharafContainer) {
+                when (it) {
+                    is Result.Success -> {
+                        Log.d("sukses postAccess", "yeye")
+                    }
+                    is Result.Error -> {
+                        Log.d("error postAccess", it.errorMessage)
+                    }
+                    else -> {
+                        Log.d("Unexpected Error", "error")
+                    }
+                }
+            }
+        }
+        startActivity(Intent(this, MateriVideo::class.java).apply {
+            putExtra("idMateri", item.id)
+        })
     }
 }

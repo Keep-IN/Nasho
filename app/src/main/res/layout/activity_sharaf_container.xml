@@ -88,18 +88,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView29"
                 android:nestedScrollingEnabled="false"/>
 
-            <TextView
-                android:id="@+id/textView30"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/manrope_bold"
-                android:text="Ujian"
-                android:textColor="#111927"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="@+id/rvMateri"
-                app:layout_constraintTop_toBottomOf="@+id/rvMateri" />
-
             <ImageView
                 android:id="@+id/imageView10"
                 android:layout_width="wrap_content"
@@ -110,15 +98,6 @@
                 app:layout_constraintTop_toTopOf="@+id/textView26"
                 android:src="@drawable/img_back" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvUjian"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:layout_constraintStart_toStartOf="@+id/textView30"
-                app:layout_constraintTop_toBottomOf="@+id/textView30"
-                android:nestedScrollingEnabled="false"/>
-
             <TextView
                 android:id="@+id/textView31"
                 android:layout_width="wrap_content"
@@ -128,8 +107,8 @@
                 android:text="Materi"
                 android:textColor="#111927"
                 android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="@+id/rvUjian"
-                app:layout_constraintTop_toBottomOf="@+id/rvUjian" />
+                app:layout_constraintStart_toStartOf="@+id/rvMateri"
+                app:layout_constraintTop_toBottomOf="@+id/rvMateri" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvMateri2"
@@ -138,30 +117,10 @@
                 android:layout_marginTop="10dp"
                 app:layout_constraintStart_toStartOf="@+id/textView31"
                 app:layout_constraintTop_toBottomOf="@+id/textView31"
-                android:nestedScrollingEnabled="false"/>
-
-            <TextView
-                android:id="@+id/textView32"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/manrope_bold"
-                android:text="Ujian"
-                android:textColor="#111927"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="@+id/rvMateri2"
-                app:layout_constraintTop_toBottomOf="@+id/rvMateri2" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvUjian2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="43dp"
-                app:layout_constraintStart_toStartOf="@+id/textView32"
-                app:layout_constraintTop_toBottomOf="@+id/textView32"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:nestedScrollingEnabled="false"/>
+                android:nestedScrollingEnabled="false"
+                android:layout_marginBottom="43dp"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
