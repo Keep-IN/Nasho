@@ -19,11 +19,15 @@ import com.core.data.reqres.materi.Data
 import com.core.data.reqres.materi.DataMateri
 import com.core.data.reqres.materi.Materi
 import com.core.data.reqres.materi.Ujian
+import com.core.data.reqres.ujian.userAccessUjian.UjianAccessRequest
 import com.nasho.R
 import com.nasho.databinding.ActivityMateriContainerBinding
 import com.nasho.features.Materi.MateriVideo
 import com.nasho.features.home_materi.adapter.MateriAdapter
 import com.nasho.features.home_materi.adapter.UjianAdapter
+import com.nasho.features.quiz.QuizActivity
+import com.nasho.features.ujian.UjianActivity
+import com.nasho.features.ujian.UjianViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -33,6 +37,7 @@ import kotlinx.coroutines.withContext
 class MateriContainer : AppCompatActivity() {
     private lateinit var binding: ActivityMateriContainerBinding
     private val viewModel: HomeViewModel by viewModels()
+    private val viewModels: UjianViewModel by viewModels()
     private lateinit var materiAdapterPhase1: MateriAdapter
     private lateinit var ujianAdapterPhase1: UjianAdapter
     private lateinit var materiAdapterPhase2: MateriAdapter
@@ -169,8 +174,36 @@ class MateriContainer : AppCompatActivity() {
     }
 
     private val rvClickListenerUjian: (Ujian) -> Unit = { item ->
-        //startActivity(Intent(this, Ujian::class.java).apply {
-        //    putExtra("id", item)
-        //})
+        viewModels.viewModelScope.launch(Dispatchers.Main) {
+            item.id?.let { idUjian ->
+                Log.d("UUID Check", "Passed UUID: ${item.id}")
+
+                // Create the UjianAccessRequest object
+                val request = UjianAccessRequest(
+                    phase = 1,
+                    kategoriMateri = "3053b811-0544-4cea-b951-1b5f0b9ab36f"
+                )
+
+                // Pass the request object to postAccessUjian
+                viewModels.postAccessUjian(idUjian, request).observe(this@MateriContainer) { result ->
+                    when (result) {
+                        is Result.Success -> {
+                            startActivity(Intent(this@MateriContainer, UjianActivity::class.java).apply {
+                                putExtra("idMengambilUjian", result.data.data.idMengambilUjian[0].id)
+                                putExtra("idUjian", idUjian)
+                            })
+                        }
+                        is Result.Error -> {
+                            Log.e("Ujian Error", result.errorMessage)
+                        }
+                        else -> {
+                            Log.d("Ujian", "Unexpected state")
+                        }
+                    }
+                }
+            }
+        }
     }
+
+
 }

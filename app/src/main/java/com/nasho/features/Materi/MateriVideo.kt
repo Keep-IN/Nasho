@@ -95,29 +95,29 @@ class MateriVideo : AppCompatActivity() {
             })
         }
 
-        binding.btnNextToQuiz.setOnClickListener {
-            viewModel.viewModelScope.launch(Dispatchers.Main) {
-                idQuiz?.let { it1 ->
-                    viewModel.postAccessQuiz(it1).observe(this@MateriVideo) {
-                        when (it) {
-                            is Result.Success -> {
-                                startActivity(Intent(this@MateriVideo, QuizActivity::class.java).apply {
-                                    putExtra("idMengambilQuiz", it.data.data.idMengambilQuiz[0].id)
-                                    putExtra("idMateri", idMateri2)
-                                    putExtra("idQuiz", idQuiz)
-                                })
-                            }
-                            is Result.Error -> {
-                                // Handle error
-                            }
-                            else -> {
-                                // Handle other states
+            binding.btnNextToQuiz.setOnClickListener {
+                viewModel.viewModelScope.launch(Dispatchers.Main) {
+                    idQuiz?.let { it1 ->
+                        viewModel.postAccessQuiz(it1).observe(this@MateriVideo) {
+                            when (it) {
+                                is Result.Success -> {
+                                    startActivity(Intent(this@MateriVideo, QuizActivity::class.java).apply {
+                                        putExtra("idMengambilQuiz", it.data.data.idMengambilQuiz[0].id)
+                                        putExtra("idMateri", idMateri2)
+                                        putExtra("idQuiz", idQuiz)
+                                    })
+                                }
+                                is Result.Error -> {
+                                    // Handle error
+                                }
+                                else -> {
+                                    // Handle other states
+                                }
                             }
                         }
                     }
                 }
             }
-        }
     }
 
     @SuppressLint("SetJavaScriptEnabled")
