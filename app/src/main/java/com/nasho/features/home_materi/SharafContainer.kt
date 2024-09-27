@@ -15,11 +15,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.core.data.network.Result
 import com.core.data.reqres.materi.Materi
 import com.core.data.reqres.materi.Ujian
+import com.core.data.reqres.ujian.userAccessUjian.UjianAccessRequest
 import com.nasho.R
 import com.nasho.databinding.ActivitySharafContainerBinding
 import com.nasho.features.Materi.MateriVideo
 import com.nasho.features.home_materi.adapter.MateriAdapter
 import com.nasho.features.home_materi.adapter.UjianAdapter
+import com.nasho.features.ujian.UjianActivity
+import com.nasho.features.ujian.UjianViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -29,6 +32,7 @@ import kotlinx.coroutines.withContext
 class SharafContainer : AppCompatActivity() {
     private lateinit var binding: ActivitySharafContainerBinding
     private val viewModel: HomeViewModel by viewModels()
+    private val viewModels: UjianViewModel by viewModels()
     private lateinit var materiAdapterPhase1: MateriAdapter
     private lateinit var ujianAdapterPhase1: UjianAdapter
     private lateinit var materiAdapterPhase2: MateriAdapter
@@ -143,5 +147,37 @@ class SharafContainer : AppCompatActivity() {
         startActivity(Intent(this, MateriVideo::class.java).apply {
             putExtra("idMateri", item.id)
         })
+    }
+
+    private val rvClickListenerUjian: (Ujian) -> Unit = { item ->
+        viewModels.viewModelScope.launch(Dispatchers.Main) {
+            item.id?.let { idUjian ->
+                Log.d("UUID Check", "Passed UUID: ${item.id}")
+
+                // Create the UjianAccessRequest object
+                val request = UjianAccessRequest(
+                    phase = 1,
+                    kategoriMateri = "630fc24e-6efb-43a9-a997-b32d19a04606"
+                )
+
+                // Pass the request object to postAccessUjian
+                viewModels.postAccessUjian(idUjian, request).observe(this@SharafContainer) { result ->
+                    when (result) {
+                        is Result.Success -> {
+                            startActivity(Intent(this@SharafContainer, UjianActivity::class.java).apply {
+                                putExtra("idMengambilUjian", result.data.data.idMengambilUjian[0].id)
+                                putExtra("idUjian", idUjian)
+                            })
+                        }
+                        is Result.Error -> {
+                            Log.e("Ujian Error", result.errorMessage)
+                        }
+                        else -> {
+                            Log.d("Ujian", "Unexpected state")
+                        }
+                    }
+                }
+            }
+        }
     }
 }
