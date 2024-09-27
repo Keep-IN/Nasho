@@ -1,10 +1,15 @@
 package com.core.di
 
+import android.content.Context
 import android.content.SharedPreferences
+import android.preference.PreferenceManager
+import com.core.data.repositories.MateriRepository
+import com.core.data.repositories.QuizRepository
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -20,7 +25,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class NetworkClient {
     companion object{
-        private const val  BASE_URL =""
+        private const val  BASE_URL ="https://enormous-mint-tomcat.ngrok-free.app"
         private const val token = ".."
     }
     @Singleton
@@ -67,5 +72,40 @@ class NetworkClient {
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .client(okHttpClient)
             .build()
+
+    @Singleton
+    @Provides
+    fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
+        return PreferenceManager.getDefaultSharedPreferences(context)
+    }
+
+    @Singleton
+    @Provides
+    fun provideApiMateri(retrofit: Retrofit): ApiContractMateri =
+        retrofit.create(ApiContractMateri::class.java)
+
+    @Singleton
+    @Provides
+    fun provideApiQuiz(retrofit: Retrofit): ApiContractQuiz =
+        retrofit.create(ApiContractQuiz::class.java)
+
+    @Singleton
+    @Provides
+    fun provideApiLogin(retrofit: Retrofit): ApiContractLogin =
+        retrofit.create(ApiContractLogin::class.java)
+
+    @Singleton
+    @Provides
+    fun provideApiProfile(retrofit: Retrofit): ApiContractProfiling =
+        retrofit.create(ApiContractProfiling::class.java)
+    @Singleton
+    @Provides
+    fun provideApiSignup(retrofit: Retrofit): ApiContractSignup =
+        retrofit.create(ApiContractSignup::class.java)
+
+    @Singleton
+    @Provides
+    fun provideApiUjian(retrofit: Retrofit): ApiContractUjian =
+        retrofit.create(ApiContractUjian::class.java)
 
 }

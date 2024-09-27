@@ -1,11 +1,15 @@
 package com.nasho
 
+import android.content.Intent
 import android.os.Bundle
+import android.preference.PreferenceManager
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.nasho.databinding.ActivityMainBinding
+import com.nasho.features.home_materi.Home
+import com.nasho.features.login.Login
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -18,6 +22,23 @@ class MainActivity : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+
+        binding.cvNextOn.setOnClickListener {
+            startActivity(Intent(this, Login::class.java))
+        }
+
+        val sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
+        val accessToken = sharedPref.getString("token", null)
+
+        if (accessToken != null) {
+            val intent = Intent(this, Home::class.java)
+            startActivity(intent)
+            finish()
+        } else {
+            val intent = Intent(this, Login::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 }
