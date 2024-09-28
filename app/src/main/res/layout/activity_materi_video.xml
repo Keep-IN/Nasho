@@ -70,7 +70,9 @@
                 android:id="@+id/tvIsiSpekMateri"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
                 android:layout_marginBottom="20dp"
                 android:fontFamily="@font/manrope"
                 android:text="Nahwu adalah ilmu yang mempelajari struktur kalimat dalam bahasa Arab. Fokus utama nahwu adalah bagaimana kata-kata disusun dalam sebuah kalimat agar sesuai dengan kaidah tata bahasa Arab. Nahwu mencakup aturan tentang posisi dan fungsi kata dalam kalimat, serta perubahan yang terjadi pada akhir kata karena posisi tersebut."
@@ -78,8 +80,8 @@
                 android:textColorLink="#4D5761"
                 android:textSize="14dp"
                 app:layout_constraintBottom_toTopOf="@+id/btnNextToQuiz"
-                app:layout_constraintEnd_toEndOf="@+id/webView"
-                app:layout_constraintStart_toStartOf="@+id/webView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/webView" />
 
             <com.google.android.material.button.MaterialButton
@@ -90,9 +92,9 @@
                 android:text="Mengerjakan Kuis"
                 app:backgroundTint="@color/Success50"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/webView"
+                app:layout_constraintEnd_toEndOf="@+id/tvIsiSpekMateri"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/webView" />
+                app:layout_constraintStart_toStartOf="@+id/tvIsiSpekMateri" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

@@ -7,16 +7,14 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import android.webkit.WebChromeClient
+import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.FrameLayout
-import android.widget.ImageButton
-import android.widget.SeekBar
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import androidx.annotation.OptIn
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -95,37 +93,46 @@ class MateriVideo : AppCompatActivity() {
             })
         }
 
-            binding.btnNextToQuiz.setOnClickListener {
-                viewModel.viewModelScope.launch(Dispatchers.Main) {
-                    idQuiz?.let { it1 ->
-                        viewModel.postAccessQuiz(it1).observe(this@MateriVideo) {
-                            when (it) {
-                                is Result.Success -> {
-                                    startActivity(Intent(this@MateriVideo, QuizActivity::class.java).apply {
-                                        putExtra("idMengambilQuiz", it.data.data.idMengambilQuiz[0].id)
-                                        putExtra("idMateri", idMateri2)
-                                        putExtra("idQuiz", idQuiz)
-                                    })
-                                }
-                                is Result.Error -> {
-                                    // Handle error
-                                }
-                                else -> {
-                                    // Handle other states
-                                }
+        binding.btnNextToQuiz.setOnClickListener {
+            viewModel.viewModelScope.launch(Dispatchers.Main) {
+                idQuiz?.let { it1 ->
+                    viewModel.postAccessQuiz(it1).observe(this@MateriVideo) {
+                        when (it) {
+                            is Result.Success -> {
+                                startActivity(Intent(this@MateriVideo, QuizActivity::class.java).apply {
+                                    putExtra("idMengambilQuiz", it.data.data.idMengambilQuiz[0].id)
+                                    putExtra("idMateri", idMateri2)
+                                    putExtra("idQuiz", idQuiz)
+                                })
+                            }
+                            is Result.Error -> {
+                                // Handle error
+                            }
+                            else -> {
+                                // Handle other states
                             }
                         }
                     }
                 }
             }
+        }
     }
 
     @SuppressLint("SetJavaScriptEnabled")
-    private fun initializeWebView(videoLink: String) {
+    private fun initializeWebView(videoLink: String?) {
+        if (videoLink.isNullOrEmpty()) {
+            // Jika videoLink null atau kosong, sembunyikan WebView
+            webView.visibility = View.GONE
+            // Tampilkan pesan bahwa video tidak tersedia
+            binding.tvIsiSpekMateri.text = "Video is not available"
+            return
+        }
+
         webView.settings.apply {
             javaScriptEnabled = true
             mediaPlaybackRequiresUserGesture = false
         }
+
         webView.webChromeClient = object : WebChromeClient() {
             override fun onShowCustomView(view: View, callback: CustomViewCallback) {
                 if (fullscreenContainer == null) {
@@ -159,18 +166,31 @@ class MateriVideo : AppCompatActivity() {
                 requestedOrientation = originalOrientation
             }
         }
+
         webView.webViewClient = object : WebViewClient() {
+            override fun onReceivedError(
+                view: WebView?,
+                request: WebResourceRequest?,
+                error: WebResourceError?
+            ) {
+                // Jika terjadi error saat memuat halaman, sembunyikan WebView
+                webView.visibility = View.GONE
+                // Tampilkan pesan kesalahan
+                binding.tvIsiSpekMateri.text = "Webpage not available"
+            }
+
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
                 Log.d("WebView", "Page loaded: $url")
             }
         }
+
         webView.loadUrl(videoLink)
     }
 
     override fun onStop() {
         super.onStop()
-        webView.loadUrl("about:blank") // Clear WebView content
+        webView.loadUrl("about:blank") // Bersihkan konten WebView
         handler.removeCallbacksAndMessages(null)
     }
 }
